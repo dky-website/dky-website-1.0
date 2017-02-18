@@ -3,6 +3,7 @@ package com.dky.website.business.biz;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.User;
 import com.dky.website.common.param.QueryUserParam;
+import com.dky.website.common.response.ReturnT;
 
 /**
  * Created by wonpera on 2017/2/18.
@@ -10,4 +11,6 @@ import com.dky.website.common.param.QueryUserParam;
 public interface UserService {
 
     PageHelper.Page<User> queryUserPage(QueryUserParam param);
+
+    ReturnT login(String username,String password);
 }
