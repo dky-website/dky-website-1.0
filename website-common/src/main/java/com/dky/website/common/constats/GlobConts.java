@@ -60,4 +60,7 @@ public class GlobConts {
      * 不需要登录的URL
      */
     public static final String[] EXCLUDER_URLS = {"/user/loginUser","/boot/queryValid","/dimNew/getSexEnum","/dimNew/getBigClassEnum"};
+
+
+    public static final String UPLOAD_IMAGE_FATH = "assets/img/upload/";
 }

@@ -14,6 +14,7 @@
 <link href="${ctx}/assets/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 
+
 <!-- 全局js -->
 <script src="${ctx}/assets/js/jquery.min.js?v=2.1.4"></script>
 <script src="${ctx}/assets/js/bootstrap.min.js?v=3.3.6"></script>
@@ -41,7 +42,12 @@
 
 <!-- artTemplate -->
 <script src="${ctx}/assets/js/plugins/artTemplate/template.js"></script>
+<script src="${ctx}/assets/js/plugins/swfupload/swfupload.js"></script>
+<script src="${ctx}/assets/js/plugins/swfupload/swfupload.queue.js"></script>
+<script src="${ctx}/assets/js/plugins/swfupload/swfupload.speed.js"></script>
+<script src="${ctx}/assets/js/plugins/swfupload/handlers.js"></script>
 
 
 <script src="${ctx}/assets/js/namespace.js"></script>
 <script src="${ctx}/assets/js/config.js"></script>
+

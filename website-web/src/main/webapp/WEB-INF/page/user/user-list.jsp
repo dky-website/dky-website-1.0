@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 
@@ -11,12 +13,10 @@
     <meta name="description" content="">
     <link rel="shortcut icon" href="favicon.ico">
     <style>
-        /* Additional style to fix warning dialog position */
         #alertmod_table_list_2 {
             top: 900px !important;
         }
     </style>
-
     <jsp:include page="../include.jsp"></jsp:include>
 </head>
 
@@ -26,43 +26,91 @@
         <div class="col-sm-12">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>jQuery Grid Plugin – jqGrid</h5>
+                    <h5>用户管理</h5>
+                </div>
+                <div class="">
+                    <button type="button" class="btn btn-w-m btn-success" id="addBtn">新增</button>
                 </div>
                 <div class="ibox-content">
-                    <%--<p>
-                        <strong>jqGrid</strong> 是一个用来显示网格数据的jQuery插件，文档比较全面，附带中文版本。访问<a target="_blank" href="http://www.trirand.com/blog/"> 官网</a>
-                    </p>
-                    <p>jqGrid的主要特点为：</p>
-                    <ol>
-                        <li>基于jquery UI主题，开发者可以根据客户要求更换不同的主题</li>
-                        <li>兼容目前所有流行的web浏览器</li>
-                        <li>Ajax分页，可以控制每页显示的记录数</li>
-                        <li>支持XML，JSON，数组形式的数据源</li>
-                        <li>提供丰富的选项配置及方法事件接口</li>
-                        <li>支持表格排序，支持拖动列、隐藏列</li>
-                        <li>支持滚动加载数据</li>
-                        <li>支持实时编辑保存数据内容</li>
-                        <li>支持子表格及树形表格</li>
-                        <li>支持多语言</li>
-                        <li>免费</li>
-                    </ol>--%>
                     <hr>
-                    <h4>基本示例</h4>
-
+                    <h4>用户列表</h4>
                     <div class="jqGrid_wrapper">
-                        <table id="table_list_1"></table>
-                        <div id="pager_list_1"></div>
+                        <table id="table_list"></table>
+                        <div id="pager_list"></div>
                     </div>
                     <p>&nbsp;</p>
-                    <%--<h4 class="m-t">高级用法</h4>--%>
-
-
-                   <%-- <div class="jqGrid_wrapper">
-                        <table id="table_list_2"></table>
-                        <div id="pager_list_2"></div>
-                    </div>--%>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="add-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    <i class="icon-pencil"></i>
+                    <span  style="font-weight:bold">用户新增</span>
+                </h4>
+            </div>
+            <form class="form-horizontal form-bordered form-row-strippe" id="addForm" action="" data-toggle="validator">
+                <div class="modal-body" id="add-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">用户名:</label>
+                                <div class="col-md-10">
+                                    <input name="username" type="text"  class="form-control" placeholder="用户名" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">昵称:</label>
+                                <div class="col-md-10">
+                                    <input name="nickname" type="text"  class="form-control" placeholder="昵称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">电话:</label>
+                                <div class="col-md-10">
+                                    <input name="phone" type="text"  class="form-control" placeholder="电话" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">邮箱:</label>
+                                <div class="col-md-10">
+                                    <input name="email" type="text"  class="form-control" placeholder="邮箱" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-2">图片:</label>
+                                <div class="col-md-10">
+                                    <div class="demo l_f">
+                                        <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
+                                        <div class="logoupload">
+                                            <input type="hidden" name="fBrandLogo" id="fBrandLogo"  />
+                                            <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                                            <div class="progress-box" style="display:none;">
+                                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                            </div>
+                                        </div>
+
+                                    </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm" data-dismiss="modal">取消</button>
+                    <button type="button" id="update-btn" class="btn btn-sm btn-success">确定</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -70,258 +118,17 @@
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function () {
-
         $.jgrid.defaults.styleUI = 'Bootstrap';
-        // Examle data for jqGrid
-        var mydata = [
-            {
-                id: "1",
-                invdate: "2010-05-24",
-                name: "test",
-                note: "note",
-                tax: "10.00",
-                total: "2111.00"
-            },
-            {
-                id: "2",
-                invdate: "2010-05-25",
-                name: "test2",
-                note: "note2",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "3",
-                invdate: "2007-09-01",
-                name: "test3",
-                note: "note3",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "4",
-                invdate: "2007-10-04",
-                name: "test",
-                note: "note",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "5",
-                invdate: "2007-10-05",
-                name: "test2",
-                note: "note2",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "6",
-                invdate: "2007-09-06",
-                name: "test3",
-                note: "note3",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "7",
-                invdate: "2007-10-04",
-                name: "test",
-                note: "note",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "8",
-                invdate: "2007-10-03",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "21.00",
-                total: "320.00"
-            },
-            {
-                id: "9",
-                invdate: "2007-09-01",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "11",
-                invdate: "2007-10-01",
-                name: "test",
-                note: "note",
-                amount: "200.00",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "12",
-                invdate: "2007-10-02",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "13",
-                invdate: "2007-09-01",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "14",
-                invdate: "2007-10-04",
-                name: "test",
-                note: "note",
-                amount: "200.00",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "15",
-                invdate: "2007-10-05",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "16",
-                invdate: "2007-09-06",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "17",
-                invdate: "2007-10-04",
-                name: "test",
-                note: "note",
-                amount: "200.00",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "18",
-                invdate: "2007-10-03",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "19",
-                invdate: "2007-09-01",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "21",
-                invdate: "2007-10-01",
-                name: "test",
-                note: "note",
-                amount: "200.00",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "22",
-                invdate: "2007-10-02",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "23",
-                invdate: "2007-09-01",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "24",
-                invdate: "2007-10-04",
-                name: "test",
-                note: "note",
-                amount: "200.00",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "25",
-                invdate: "2007-10-05",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "26",
-                invdate: "2007-09-06",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            },
-            {
-                id: "27",
-                invdate: "2007-10-04",
-                name: "test",
-                note: "note",
-                amount: "200.00",
-                tax: "10.00",
-                total: "210.00"
-            },
-            {
-                id: "28",
-                invdate: "2007-10-03",
-                name: "test2",
-                note: "note2",
-                amount: "300.00",
-                tax: "20.00",
-                total: "320.00"
-            },
-            {
-                id: "29",
-                invdate: "2007-09-01",
-                name: "test3",
-                note: "note3",
-                amount: "400.00",
-                tax: "30.00",
-                total: "430.00"
-            }
-        ];
-
-        // Configuration for jqGrid Example 1
-        $("#table_list_1").jqGrid({
-            data: mydata,
-            datatype: "local",
-            height: 250,
+        $("#table_list").jqGrid({
+            datatype: "json",
+            url: '${ctx}/user/page',
+            mtype : 'POST',
+            height: 500,
             autowidth: true,
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['序号', '日期', '客户', '金额', '运费', '总额', '备注'],
+            colNames: ['id', '用户名', '昵称', '电话', '邮箱', '状态', '操作'],
             colModel: [
                 {
                     name: 'id',
@@ -330,153 +137,174 @@
                     sorttype: "int"
                 },
                 {
-                    name: 'invdate',
-                    index: 'invdate',
-                    width: 90,
-                    sorttype: "date",
-                    formatter: "date"
+                    name: 'username',
+                    index: 'username',
+                    width: 90
                 },
                 {
-                    name: 'name',
-                    index: 'name',
+                    name: 'nickname',
+                    index: 'nickname',
                     width: 100
                 },
                 {
-                    name: 'amount',
-                    index: 'amount',
+                    name: 'phone',
+                    index: 'phone',
                     width: 80,
-                    align: "right",
-                    sorttype: "float",
-                    formatter: "number"
+                    sorttype: "int"
                 },
                 {
-                    name: 'tax',
-                    index: 'tax',
-                    width: 80,
-                    align: "right",
-                    sorttype: "float"
+                    name: 'email',
+                    index: 'email',
+                    width: 80
                 },
                 {
-                    name: 'total',
-                    index: 'total',
-                    width: 80,
-                    align: "right",
-                    sorttype: "float"
+                    name: 'status',
+                    index: 'status',
+                    width: 50,
+                    formatter : function(cellvalue, options, rowObject){
+                        if(cellvalue == '0'){
+                            return '<p><span class="label label-primary">启用</span></p>';
+                        }else if(cellvalue == '1'){
+                            return '<p><span class="label label-danger">禁用</span></p>';
+                        }
+                        return cellvalue;
+                    }
                 },
-                {
-                    name: 'note',
-                    index: 'note',
-                    width: 150,
-                    sortable: false
-                }
-            ],
-            pager: "#pager_list_1",
-            viewrecords: true,
-            caption: "jqGrid 示例1",
-            hidegrid: false
-        });
-
-/*
-        // Configuration for jqGrid Example 2
-        $("#table_list_2").jqGrid({
-            data: mydata,
-            datatype: "local",
-            height: 450,
-            autowidth: true,
-            shrinkToFit: true,
-            rowNum: 20,
-            rowList: [10, 20, 30],
-            colNames: ['序号', '日期', '客户', '金额', '运费', '总额', '备注'],
-            colModel: [
                 {
                     name: 'id',
                     index: 'id',
-                    editable: true,
-                    width: 60,
-                    sorttype: "int",
-                    search: true
-                },
-                {
-                    name: 'invdate',
-                    index: 'invdate',
-                    editable: true,
-                    width: 90,
-                    sorttype: "date",
-                    formatter: "date"
-                },
-                {
-                    name: 'name',
-                    index: 'name',
-                    editable: true,
-                    width: 100
-                },
-                {
-                    name: 'amount',
-                    index: 'amount',
-                    editable: true,
-                    width: 80,
-                    align: "right",
-                    sorttype: "float",
-                    formatter: "number"
-                },
-                {
-                    name: 'tax',
-                    index: 'tax',
-                    editable: true,
-                    width: 80,
-                    align: "right",
-                    sorttype: "float"
-                },
-                {
-                    name: 'total',
-                    index: 'total',
-                    editable: true,
-                    width: 80,
-                    align: "right",
-                    sorttype: "float"
-                },
-                {
-                    name: 'note',
-                    index: 'note',
-                    editable: true,
-                    width: 100,
-                    sortable: false
+                    width: 150,
+                    sortable: false,
+                    formatter: function(cellvalue, options, rowObject){
+                        var html = '<button class="btn btn-info" type="button"><i class="fa fa-paste"></i> 编辑</button>&nbsp;&nbsp;';
+                        html += '<button class="btn btn-warning " type="button"><i class="fa fa-warning"></i> <span class="bold">删除</span> </button>';
+                        return html;
+                    }
                 }
             ],
-            pager: "#pager_list_2",
+            pager: "#pager_list",
             viewrecords: true,
-            caption: "jqGrid 示例2",
-            add: true,
-            edit: true,
-            addtext: 'Add',
-            edittext: 'Edit',
-            hidegrid: false
+            hidegrid: false,
+            jsonReader :{
+                root: "result",    // json中代表实际模型数据的入口
+                page: "pageNum",    // json中代表当前页码的数据
+                total: "pages",    // json中代表页码总数的数据
+                records: "total", // json中代表数据行总数的数据
+                repeatitems: false
+            },
+            multiselect : true,
+            autowidth: true,
+            sortname: 'id',
+            viewrecords: true,
+            sortorder: "desc"
         });
 
-        // Add selection
-        $("#table_list_2").setSelection(4, true);
 
 
-        // Setup buttons
-        $("#table_list_2").jqGrid('navGrid', '#pager_list_2', {
-            edit: true,
-            add: true,
-            del: true,
-            search: true
-        }, {
-            height: 200,
-            reloadAfterSubmit: true
+        $('#addBtn').bind('click',function(){
+//            $('#add-data').html(template('add-tmpl',{}));
+            $("#add-modal").modal({backdrop: 'static', keyboard: false});
         });
-*/
 
-        // Add responsive to jqGrid
-        $(window).bind('resize', function () {
-            var width = $('.jqGrid_wrapper').width();
-            $('#table_list_1').setGridWidth(width);
-            $('#table_list_2').setGridWidth(width);
-        });
     });
 </script>
 </body>
+
+
+
+<!-- script templcate -->
+<script id="add-tmpl" type="text/html">
+
+</script>
+
+
+<script type="text/javascript">
+    function updateProgress(file) {
+        $('.progress-box .progress-bar > div').css('width', parseInt(file.percentUploaded) + '%');
+        $('.progress-box .progress-num > b').html(SWFUpload.speed.formatPercent(file.percentUploaded));
+        if(parseInt(file.percentUploaded) == 100) {
+            // 如果上传完成了
+            $('.progress-box').hide();
+        }
+    }
+
+    function initProgress() {
+       $('.progress-box').show();
+        $('.progress-box .progress-bar > div').css('width', '0%');
+        $('.progress-box .progress-num > b').html('0%');
+    }
+
+    function successAction(fileInfo) {
+        var up_path = fileInfo.path;
+        var up_width = fileInfo.width;
+        var up_height = fileInfo.height;
+        var _up_width,_up_height;
+        if(up_width > 120) {
+            _up_width = 120;
+            _up_height = _up_width*up_height/up_width;
+        }
+       $(".logobox .resizebox").css({width: _up_width, height: _up_height});
+        $(".logobox .resizebox > img").attr('src', '../'+up_path);
+        $(".logobox .resizebox > img").attr('width', _up_width);
+        $(".logobox .resizebox > img").attr('height', _up_height);
+        $('#fBrandLogo').val(up_path);
+    }
+
+    var swfImageUpload;
+    $(document).ready(function() {
+        var settings = {
+            flash_url : "${ctx}/assets/js/plugins/swfupload/swfupload.swf",
+            flash9_url : "${ctx}/assets/js/plugins/swfupload/swfupload_fp9.swf",
+            upload_url: "${ctx}/upload/file",// 接受上传的地址
+            file_size_limit : "5MB",// 文件大小限制
+            file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
+            file_types_description : "图片",// 说明，自己定义
+            file_upload_limit : 100,
+            file_queue_limit : 0,
+            custom_settings : {},
+            debug: false,
+            // Button settings
+            button_image_url: "${ctx}/assets/js/plugins/swfupload/upload-btn.png",
+            button_width: "95",
+            button_height: "30 ",
+            button_placeholder_id: 'uploadBtnHolder',
+            button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
+            button_cursor : SWFUpload.CURSOR.HAND,
+            button_action: SWFUpload.BUTTON_ACTION.SELECT_FILE,
+
+            moving_average_history_size: 40,
+
+            // The event handler functions are defined in handlers.js
+            swfupload_preload_handler : preLoad,
+            swfupload_load_failed_handler : loadFailed,
+            file_queued_handler : fileQueued,
+            file_dialog_complete_handler: fileDialogComplete,
+            upload_start_handler : function (file) {
+                initProgress();
+                updateProgress(file);
+            },
+            upload_progress_handler : function(file, bytesComplete, bytesTotal) {
+                updateProgress(file);
+            },
+            upload_success_handler : function(file, data, response) {
+                // 上传成功后处理函数
+                var fileInfo = eval("(" + data + ")");
+                console.log(data);
+                successAction(fileInfo);
+            },
+            upload_error_handler : function(file, errorCode, message) {
+                alert('上传发生了错误！');
+            },
+            file_queue_error_handler : function(file, errorCode, message) {
+                if(errorCode == -110) {
+                    alert('您选择的文件太大了。');
+                }
+            }
+        };
+        swfImageUpload = new SWFUpload(settings);
+    });
+</script>
+
+
 
 </html>
