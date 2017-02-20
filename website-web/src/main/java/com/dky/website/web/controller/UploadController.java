@@ -5,6 +5,7 @@ import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.utils.DateUtils;
 import com.google.common.collect.Maps;
 import com.google.common.io.Files;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public class UploadController {
             String rootPath =  GlobConts.UPLOAD_IMAGE_FATH.concat(DateUtils.formatNowDate("yyyyMMdd")).concat(File.separator);
             filePath = rootPath.concat(String.valueOf(System.currentTimeMillis())).concat(getFilePrefix(filedata.getOriginalFilename()));
             String uploadPath = path.concat(File.separator).concat(filePath);
-            Files.write(bytes, new File(uploadPath));
+            FileUtils.writeByteArrayToFile( new File(uploadPath),bytes);
         } catch (IOException e) {
             LOGGER.error("文件上传失败");
         }

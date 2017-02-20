@@ -59,52 +59,7 @@
             </div>
             <form class="form-horizontal form-bordered form-row-strippe" id="addForm" action="" data-toggle="validator">
                 <div class="modal-body" id="add-data">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label col-md-2">用户名:</label>
-                                <div class="col-md-10">
-                                    <input name="username" type="text"  class="form-control" placeholder="用户名" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">昵称:</label>
-                                <div class="col-md-10">
-                                    <input name="nickname" type="text"  class="form-control" placeholder="昵称" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">电话:</label>
-                                <div class="col-md-10">
-                                    <input name="phone" type="text"  class="form-control" placeholder="电话" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">邮箱:</label>
-                                <div class="col-md-10">
-                                    <input name="email" type="text"  class="form-control" placeholder="邮箱" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            <label class="control-label col-md-2">图片:</label>
-                                <div class="col-md-10">
-                                    <div class="demo l_f">
-                                        <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
-                                        <div class="logoupload">
-                                            <input type="hidden" name="fBrandLogo" id="fBrandLogo"  />
-                                            <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                                            <div class="progress-box" style="display:none;">
-                                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                                            </div>
-                                        </div>
-
-                                    </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm" data-dismiss="modal">取消</button>
@@ -202,7 +157,8 @@
 
 
         $('#addBtn').bind('click',function(){
-//            $('#add-data').html(template('add-tmpl',{}));
+            $('#add-data').html(template('add-tmpl',{}));
+            initImageUpload();
             $("#add-modal").modal({backdrop: 'static', keyboard: false});
         });
 
@@ -214,7 +170,52 @@
 
 <!-- script templcate -->
 <script id="add-tmpl" type="text/html">
+<div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">用户名:</label>
+                                <div class="col-md-10">
+                                    <input name="username" type="text"  class="form-control" placeholder="用户名" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">昵称:</label>
+                                <div class="col-md-10">
+                                    <input name="nickname" type="text"  class="form-control" placeholder="昵称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">电话:</label>
+                                <div class="col-md-10">
+                                    <input name="phone" type="text"  class="form-control" placeholder="电话" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">邮箱:</label>
+                                <div class="col-md-10">
+                                    <input name="email" type="text"  class="form-control" placeholder="邮箱" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-2">图片:</label>
+                                <div class="col-md-10">
+                                    <div class="demo l_f">
+                                        <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
+                                        <div class="logoupload">
+                                            <input type="hidden" name="fBrandLogo" id="fBrandLogo"  />
+                                            <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                                            <div class="progress-box" style="display:none;">
+                                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                            </div>
+                                        </div>
 
+                                    </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 </script>
 
 
@@ -251,57 +252,63 @@
     }
 
     var swfImageUpload;
-    $(document).ready(function() {
+
+    function initImageUpload(){
         var settings = {
-            flash_url : "${ctx}/assets/js/plugins/swfupload/swfupload.swf",
-            flash9_url : "${ctx}/assets/js/plugins/swfupload/swfupload_fp9.swf",
-            upload_url: "${ctx}/upload/file",// 接受上传的地址
-            file_size_limit : "5MB",// 文件大小限制
-            file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
-            file_types_description : "图片",// 说明，自己定义
-            file_upload_limit : 100,
-            file_queue_limit : 0,
-            custom_settings : {},
-            debug: false,
-            // Button settings
-            button_image_url: "${ctx}/assets/js/plugins/swfupload/upload-btn.png",
-            button_width: "95",
-            button_height: "30 ",
-            button_placeholder_id: 'uploadBtnHolder',
-            button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
-            button_cursor : SWFUpload.CURSOR.HAND,
-            button_action: SWFUpload.BUTTON_ACTION.SELECT_FILE,
+                flash_url : "${ctx}/assets/js/plugins/swfupload/swfupload.swf",
+                flash9_url : "${ctx}/assets/js/plugins/swfupload/swfupload_fp9.swf",
+                upload_url: "${ctx}/upload/file",// 接受上传的地址
+                file_size_limit : "5MB",// 文件大小限制
+                file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
+                file_types_description : "图片",// 说明，自己定义
+                file_upload_limit : 100,
+                file_queue_limit : 0,
+                custom_settings : {},
+                debug: false,
+                // Button settings
+                button_image_url: "${ctx}/assets/js/plugins/swfupload/upload-btn.png",
+                button_width: "95",
+                button_height: "30 ",
+                button_placeholder_id: 'uploadBtnHolder',
+                button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
+                button_cursor : SWFUpload.CURSOR.HAND,
+                button_action: SWFUpload.BUTTON_ACTION.SELECT_FILE,
 
-            moving_average_history_size: 40,
+                moving_average_history_size: 40,
 
-            // The event handler functions are defined in handlers.js
-            swfupload_preload_handler : preLoad,
-            swfupload_load_failed_handler : loadFailed,
-            file_queued_handler : fileQueued,
-            file_dialog_complete_handler: fileDialogComplete,
-            upload_start_handler : function (file) {
-                initProgress();
-                updateProgress(file);
-            },
-            upload_progress_handler : function(file, bytesComplete, bytesTotal) {
-                updateProgress(file);
-            },
-            upload_success_handler : function(file, data, response) {
-                // 上传成功后处理函数
-                var fileInfo = eval("(" + data + ")");
-                console.log(data);
-                successAction(fileInfo);
-            },
-            upload_error_handler : function(file, errorCode, message) {
-                alert('上传发生了错误！');
-            },
-            file_queue_error_handler : function(file, errorCode, message) {
-                if(errorCode == -110) {
-                    alert('您选择的文件太大了。');
+                // The event handler functions are defined in handlers.js
+                swfupload_preload_handler : preLoad,
+                swfupload_load_failed_handler : loadFailed,
+                file_queued_handler : fileQueued,
+                file_dialog_complete_handler: fileDialogComplete,
+                upload_start_handler : function (file) {
+                    initProgress();
+                    updateProgress(file);
+                },
+                upload_progress_handler : function(file, bytesComplete, bytesTotal) {
+                    updateProgress(file);
+                },
+                upload_success_handler : function(file, data, response) {
+                    // 上传成功后处理函数
+                    var fileInfo = eval("(" + data + ")");
+                    console.log(data);
+                    successAction(fileInfo);
+                },
+                upload_error_handler : function(file, errorCode, message) {
+                    alert('上传发生了错误！');
+                },
+                file_queue_error_handler : function(file, errorCode, message) {
+                    if(errorCode == -110) {
+                        alert('您选择的文件太大了。');
+                    }
                 }
-            }
-        };
-        swfImageUpload = new SWFUpload(settings);
+            };
+            swfImageUpload = new SWFUpload(settings);
+    }
+
+    
+    $(document).ready(function() {
+        
     });
 </script>
 
