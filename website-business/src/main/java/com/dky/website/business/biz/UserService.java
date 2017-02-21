@@ -21,4 +21,7 @@ public interface UserService {
     ReturnT updateUser(UpdUserParam param);
 
     ReturnT deleteUser(Long id);
+
+
+    ReturnT getUserById(Long id);
 }

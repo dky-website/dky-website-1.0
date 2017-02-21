@@ -80,4 +80,9 @@ public class UserServiceImpl implements UserService {
         userMapper.deleteByPrimaryKey(id);
         return new ReturnT().successDefault();
     }
+
+    @Override
+    public ReturnT getUserById(Long id) {
+        return new ReturnT().sucessData(userMapper.selectByPrimaryKey(id));
+    }
 }

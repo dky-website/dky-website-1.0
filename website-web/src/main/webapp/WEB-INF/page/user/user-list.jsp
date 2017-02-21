@@ -88,6 +88,30 @@
     </div>
 </div>
 
+
+<div id="upd-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    <i class="icon-pencil"></i>
+                    <span  style="font-weight:bold">用户修改</span>
+                </h4>
+            </div>
+            <form class="form-horizontal form-bordered form-row-strippe" id="updForm" action="" data-toggle="validator">
+                <div class="modal-body" id="upd-data">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm" data-dismiss="modal">取消</button>
+                    <button type="button" id="upd-btn" class="btn btn-sm btn-success">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function () {
@@ -157,8 +181,8 @@
                     width: 150,
                     sortable: false,
                     formatter: function(cellvalue, options, rowObject){
-                        var html = '<button class="btn btn-info" type="button"><i class="fa fa-paste"></i> 编辑</button>&nbsp;&nbsp;';
-                        html += '<button class="btn btn-warning " type="button"><i class="fa fa-warning"></i> <span class="bold">删除</span> </button>';
+                        var html = '<button class="btn btn-info" name="edit-btn" onClick="goUpdate('+cellvalue+')" data-key="'+cellvalue+'" type="button"><i class="fa fa-paste"></i> 编辑</button>&nbsp;&nbsp;';
+                        html += '<button class="btn btn-warning" onClick="deleteRow('+cellvalue+')"  type="button"><i class="fa fa-warning"></i> <span class="bold">删除</span> </button>';
                         return html;
                     }
                 }
@@ -201,9 +225,45 @@
             $('#searchForm')[0].reset();
         });
 
+         $('#upd-btn').bind('click',function(){
+            update();
+         });
+
 
 
     });
+
+        function goUpdate(id){
+            var data;
+            postAsync('${ctx}/user/getUserById',{'id':id},function(result){data=result.data});
+            $('#upd-data').html(template('upd-tmpl',{'data':data}));
+            initImageUpload('upd_photo');
+            $("#upd-modal").modal({backdrop: 'static', keyboard: false});
+        }
+
+    function update(){
+        var param = {};
+            $('#updForm .form-control').each(function(){
+                var name = $(this).attr('name');
+                var value = $(this).val();
+                param[name] = value;
+            });
+            if(!validate(param)){
+                return;
+            }
+            postAjax('${ctx}/user/update',param,function(result){
+                    if(result.success){
+                        $("#table_list").trigger("reloadGrid");
+                        swal("提示！", "修改成功!", "success");
+                        $("#upd-modal").modal("hide");
+                    }else{
+                        swal("提示！", result.msg, "error");
+                    }
+            });
+    }
+
+
+  
 
 
         function search(){
@@ -241,6 +301,29 @@
                     }
             });
             
+        }
+
+
+        function deleteRow(id){
+            swal({ 
+                  title:"",  
+                  text:"确定删除吗？",  
+                  type:"warning",  
+                  showCancelButton:"true",  
+                  showConfirmButton:"true",  
+                  confirmButtonText:"确定",  
+                  cancelButtonText:"取消",  
+                  animation:"slide-from-top"  
+            }, function() { 
+               postAjax('${ctx}/user/delete',{'id':id},function(result){
+                    if(result.success){
+                        $("#table_list").trigger("reloadGrid");
+                        swal("操作成功!", "已成功删除数据！", "success");
+                    }else{
+                        swal("提示信息", "删除失败", "error");
+                    }
+               });
+            });
         }
 
 
@@ -304,6 +387,57 @@
                             </div>
                         </div>
                     </div>
+</script>
+
+
+<script id="upd-tmpl" type="text/html">
+    <div class="row">
+    <input name="id" type="hidden" value="{{data.id}}"  class="form-control"  />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">用户名:</label>
+                                <div class="col-md-10">
+                                    <input name="username" type="text" value="{{data.username}}"  class="form-control" placeholder="用户名" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">昵称:</label>
+                                <div class="col-md-10">
+                                    <input name="nickname" type="text" value="{{data.nickname}}"  class="form-control" placeholder="昵称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">电话:</label>
+                                <div class="col-md-10">
+                                    <input name="phone" type="text" value="{{data.phone}}"  class="form-control" placeholder="电话" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">邮箱:</label>
+                                <div class="col-md-10">
+                                    <input name="email" type="text" value="{{data.email}}"   class="form-control" placeholder="邮箱" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-2">图片:</label>
+                                <div class="col-md-10">
+                                    <div class="demo l_f">
+                                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.photo}}" width="100px" alt="" height="100px"/></div></div>
+                                        <div class="logoupload">
+                                            <input type="hidden" name="photo" value="{{data.photo}}" id="upd_photo" class="form-control"   />
+                                            <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                                            <div class="progress-box" style="display:none;">
+                                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                            </div>
+                                        </div>
+
+                                    </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+                                </div>
+                            </div>
+                        </div>
+    </div>
 </script>
 
 

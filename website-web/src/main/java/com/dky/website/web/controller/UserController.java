@@ -97,8 +97,14 @@ public class UserController {
         ReturnT returnT = userService.login(username,password);
         if(returnT.isSuccess()){
             //登录信息
-            session.setAttribute(GlobConts.CURRENT_SESSION_KEY,returnT.getData());
+            session.setAttribute(GlobConts.CURRENT_SESSION_KEY, returnT.getData());
         }
         return returnT;
+    }
+
+
+    @RequestMapping("getUserById")
+    public ReturnT getUserById(@RequestParam(value = "id")Long id){
+        return userService.getUserById(id);
     }
 }

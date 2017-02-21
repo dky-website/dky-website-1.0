@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -42,9 +43,9 @@ public class IndexController {
     }
 
     @RequestMapping("/index/getSessionUser")
-    public ReturnT getSessionUser(HttpSession session){
+    public ReturnT getSessionUser(HttpServletRequest request){
         User user = (User)
-        session.getAttribute(GlobConts.CURRENT_SESSION_KEY);
+                request.getSession().getAttribute(GlobConts.CURRENT_SESSION_KEY);
         if(user == null){
             return new ReturnT().failureData("用户未登录");
         }
@@ -55,6 +56,12 @@ public class IndexController {
     @RequestMapping("index/menu")
     public ReturnT menu(QueryMenuParameter parameter){
         return menuService.queryUserMenu(parameter);
+    }
+
+    @RequestMapping(value = "index/logout")
+    public ReturnT logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return new ReturnT().successDefault();
     }
 
 
