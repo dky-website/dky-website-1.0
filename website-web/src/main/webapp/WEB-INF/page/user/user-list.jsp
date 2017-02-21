@@ -28,12 +28,30 @@
                 <div class="ibox-title">
                     <h5>用户管理</h5>
                 </div>
-                <div class="">
-                    <button type="button" class="btn btn-w-m btn-success" id="addBtn">新增</button>
+                <div class="ibox-content">
+                    <form role="form" class="form-inline" id="searchForm">
+                            <div class="form-group">
+                                <label>用户名:</label>
+                                <input type="text" name="username" class="form-control">
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                               <label>电话:</label>
+                                <input type="text" name="phone" class="form-control">
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                               <label>邮箱:</label>
+                                <input type="text" name="email" class="form-control">
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-w-m btn-primary" id="searchBth" >查询</button>
+                            <button type="button" class="btn btn-w-m btn-success" id="resetBtn">重置</button>
+                    </form>
                 </div>
                 <div class="ibox-content">
-                    <hr>
-                    <h4>用户列表</h4>
+                    <button type="button" class="btn btn-w-m btn-success" id="addBtn">新增</button>
+                    <button type="button" class="btn btn-w-m btn-warning" >批量删除</button>
+                </div>
+                <div class="ibox-content">
+                    <!-- <h4>用户列表</h4> -->
                     <div class="jqGrid_wrapper">
                         <table id="table_list"></table>
                         <div id="pager_list"></div>
@@ -63,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm" data-dismiss="modal">取消</button>
-                    <button type="button" id="update-btn" class="btn btn-sm btn-success">确定</button>
+                    <button type="button" id="save-btn" class="btn btn-sm btn-success">确定</button>
                 </div>
             </form>
         </div>
@@ -83,7 +101,7 @@
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['id', '用户名', '昵称', '电话', '邮箱', '状态', '操作'],
+            colNames: ['id', '用户名', '昵称','头像', '电话', '邮箱', '状态', '操作'],
             colModel: [
                 {
                     name: 'id',
@@ -100,6 +118,14 @@
                     name: 'nickname',
                     index: 'nickname',
                     width: 100
+                },
+                {
+                    name:'photo',
+                    index:'photo',
+                    width : 200,
+                    formatter : function(cellvalue, options, rowObject){
+                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
+                    }
                 },
                 {
                     name: 'phone',
@@ -158,11 +184,73 @@
 
         $('#addBtn').bind('click',function(){
             $('#add-data').html(template('add-tmpl',{}));
-            initImageUpload();
+            initImageUpload('add_photo');
             $("#add-modal").modal({backdrop: 'static', keyboard: false});
         });
 
+
+        $('#save-btn').bind('click',function(){
+            save();
+        });
+
+        $('#searchBth').bind('click',function(){
+            search();
+        });
+
+         $('#resetBtn').bind('click',function(){
+            $('#searchForm')[0].reset();
+        });
+
+
+
     });
+
+
+        function search(){
+            var param = {};
+             $('#searchForm .form-control').each(function(){
+                var name = $(this).attr('name');
+                var value = $(this).val();
+                param[name] = value;
+            });
+            $('#table_list').jqGrid('setGridParam',{
+                postData : param,
+                //查询重载第一页
+                page : 1
+            }).trigger("reloadGrid"); //重新载入
+        } 
+
+
+        function save(){
+            var param = {};
+            $('#addForm .form-control').each(function(){
+                var name = $(this).attr('name');
+                var value = $(this).val();
+                param[name] = value;
+            });
+            if(!validate(param)){
+                return;
+            }
+            postAjax('${ctx}/user/save',param,function(result){
+                    if(result.success){
+                        $("#table_list").trigger("reloadGrid");
+                        swal("提示！", "新增成功!", "success");
+                        $("#add-modal").modal("hide");
+                    }else{
+                        swal("提示！", result.msg, "error");
+                    }
+            });
+            
+        }
+
+
+        function validate(param){
+            if (!param['username']) {
+                swal("提示信息", "用户名不能为空", "error");
+                return false;
+            }
+            return true;
+        }
 </script>
 </body>
 
@@ -202,7 +290,7 @@
                                     <div class="demo l_f">
                                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                                         <div class="logoupload">
-                                            <input type="hidden" name="fBrandLogo" id="fBrandLogo"  />
+                                            <input type="hidden" name="photo" id="add_photo" class="form-control"   />
                                             <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
                                             <div style="clear:both;height:0;overflow:hidden;"></div>
                                             <div class="progress-box" style="display:none;">
@@ -235,7 +323,7 @@
         $('.progress-box .progress-num > b').html('0%');
     }
 
-    function successAction(fileInfo) {
+    function successAction(fileInfo,imgId) {
         var up_path = fileInfo.path;
         var up_width = fileInfo.width;
         var up_height = fileInfo.height;
@@ -248,12 +336,12 @@
         $(".logobox .resizebox > img").attr('src', '../'+up_path);
         $(".logobox .resizebox > img").attr('width', _up_width);
         $(".logobox .resizebox > img").attr('height', _up_height);
-        $('#fBrandLogo').val(up_path);
+        $('#'+imgId).val(up_path);
     }
 
     var swfImageUpload;
 
-    function initImageUpload(){
+    function initImageUpload(imgId){
         var settings = {
                 flash_url : "${ctx}/assets/js/plugins/swfupload/swfupload.swf",
                 flash9_url : "${ctx}/assets/js/plugins/swfupload/swfupload_fp9.swf",
@@ -291,8 +379,7 @@
                 upload_success_handler : function(file, data, response) {
                     // 上传成功后处理函数
                     var fileInfo = eval("(" + data + ")");
-                    console.log(data);
-                    successAction(fileInfo);
+                    successAction(fileInfo,imgId);
                 },
                 upload_error_handler : function(file, errorCode, message) {
                     alert('上传发生了错误！');

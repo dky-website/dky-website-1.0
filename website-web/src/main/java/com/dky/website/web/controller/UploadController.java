@@ -1,10 +1,8 @@
 package com.dky.website.web.controller;
 
 import com.dky.website.common.constats.GlobConts;
-import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.utils.DateUtils;
 import com.google.common.collect.Maps;
-import com.google.common.io.Files;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -36,7 +34,7 @@ public class UploadController {
         try {
             String path = request.getSession().getServletContext().getRealPath("/");
             byte[] bytes = IOUtils.toByteArray(filedata.getInputStream());
-            String rootPath =  GlobConts.UPLOAD_IMAGE_FATH.concat(DateUtils.formatNowDate("yyyyMMdd")).concat(File.separator);
+            String rootPath =  GlobConts.UPLOAD_IMAGE_FATH.concat(DateUtils.formatNowDate("yyyyMMdd")).concat("/");
             filePath = rootPath.concat(String.valueOf(System.currentTimeMillis())).concat(getFilePrefix(filedata.getOriginalFilename()));
             String uploadPath = path.concat(File.separator).concat(filePath);
             FileUtils.writeByteArrayToFile( new File(uploadPath),bytes);

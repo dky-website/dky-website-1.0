@@ -1,8 +1,12 @@
-package com.dky.website.common.bean;
+package com.dky.website.common.param;
 
-import java.util.Date;
+import com.dky.website.common.base.BaseParameter;
 
-public class User {
+/**
+ * Created by wangpeng on 2017/2/21.
+ */
+public class UpdUserParam extends BaseParameter {
+
     private Long id;
 
     private String username;
@@ -14,8 +18,6 @@ public class User {
     private String phone;
 
     private Integer status;
-
-    private Date createtime;
 
     private String email;
 
@@ -34,7 +36,7 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+        this.username = username;
     }
 
     public String getPassword() {
@@ -42,7 +44,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getNickname() {
@@ -50,7 +52,7 @@ public class User {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
+        this.nickname = nickname;
     }
 
     public String getPhone() {
@@ -58,7 +60,7 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public Integer getStatus() {
@@ -69,20 +71,12 @@ public class User {
         this.status = status;
     }
 
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
     public String getPhoto() {
@@ -90,6 +84,6 @@ public class User {
     }
 
     public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
+        this.photo = photo;
     }
 }
