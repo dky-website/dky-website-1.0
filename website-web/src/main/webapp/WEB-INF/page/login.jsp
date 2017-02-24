@@ -44,7 +44,7 @@
     <div class="row">
         <div class="col-sm-12">
             <form method="post" id="loginForm">
-                <h4 class="no-margins">登录：</h4>
+                <h4 class="no-margins"></h4>
                 <p class="m-t-md"></p>
                 <input type="text" name="userName" id="userName" class="form-control uname" placeholder="用户名" />
                 <input type="password" name="passWord" id="passWord" class="form-control pword m-b" placeholder="密码" />
@@ -55,7 +55,7 @@
     </div>
     <div class="signup-footer">
         <div class="pull-left">
-            &copy; xxxxxxx
+            &copy; 旦可韵
         </div>
     </div>
 </div>

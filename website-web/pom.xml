@@ -65,7 +65,7 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <path>/${project.artifactId}</path>
+                    <path>/dky-website</path>
                     <port>${webserver.port}</port>
                     <uriEncoding>${project.build.sourceEncoding}</uriEncoding>
                 </configuration>
@@ -83,7 +83,7 @@
                         </connector>
                     </connectors>
                     <webAppConfig>
-                        <contextPath>/${project.artifactId}</contextPath>
+                        <contextPath>/dky-website</contextPath>
                     </webAppConfig>
                     <systemProperties>
                         <systemProperty>

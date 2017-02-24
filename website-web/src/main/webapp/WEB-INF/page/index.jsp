@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title> DKY-WEBSITE</title>
+    <title>旦可韵</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <!--[if lt IE 9]>
@@ -59,12 +59,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">website</strong>
+                                        <strong class="font-bold">旦可韵</strong>
                                     </span>
                                 </span>
                         </a>
                     </div>
-                    <div class="logo-element">website
+                    <div class="logo-element">旦可韵
                     </div>
                 </li>
                 <li class="line dk"></li>
@@ -92,7 +92,7 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i class="fa fa-bars"></i> </a>
-                    <h1 align="center"><i>欢迎使用DKY-WEBSITE后台管理系统</i></h1>
+                    <h1 align="center"><i>欢迎使用旦可韵后台管理系统</i></h1>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">

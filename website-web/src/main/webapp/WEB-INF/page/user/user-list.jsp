@@ -120,7 +120,7 @@
             datatype: "json",
             url: '${ctx}/user/page',
             mtype : 'POST',
-            height: 500,
+            height: 300,
             autowidth: true,
             shrinkToFit: true,
             rowNum: 14,
