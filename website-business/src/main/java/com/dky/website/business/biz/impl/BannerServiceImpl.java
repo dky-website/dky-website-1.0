@@ -72,4 +72,9 @@ public class BannerServiceImpl implements BannerService {
         bannerMapper.updateByPrimaryKeySelective(banner);
         return new ReturnT().successDefault();
     }
+
+    @Override
+    public ReturnT<Banner> getBannerById(Long id) {
+        return new ReturnT<>().sucessData(bannerMapper.selectByPrimaryKey(id));
+    }
 }

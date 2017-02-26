@@ -26,13 +26,13 @@
         <div class="col-sm-12">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>banner管理</h5>
+                    <h5>网站菜单管理</h5>
                 </div>
                 <div class="ibox-content">
                     <form role="form" class="form-inline" id="searchForm">
                         <div class="form-group">
-                            <label>banner名称:</label>
-                            <input type="text" name="bannerName" class="form-control">
+                            <label>菜单名称:</label>
+                            <input type="text" name="menuName" class="form-control">
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-w-m btn-primary" id="searchBth" >查询</button>
                         <button type="button" class="btn btn-w-m btn-success" id="resetBtn">重置</button>
@@ -63,7 +63,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">
                     <i class="icon-pencil"></i>
-                    <span  style="font-weight:bold">banner图新增</span>
+                    <span  style="font-weight:bold">菜单新增</span>
                 </h4>
             </div>
             <form class="form-horizontal form-bordered form-row-strippe" id="addForm" action="" data-toggle="validator">
@@ -87,7 +87,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">
                     <i class="icon-pencil"></i>
-                    <span  style="font-weight:bold">用户修改</span>
+                    <span  style="font-weight:bold">菜单修改</span>
                 </h4>
             </div>
             <form class="form-horizontal form-bordered form-row-strippe" id="updForm" action="" data-toggle="validator">
@@ -105,18 +105,26 @@
 
 <!-- Page-Level Scripts -->
 <script>
+    var menutypes = {};//类型
+    var classifys = {};//菜单显示分类
+    var menutypeList;
+    var classifyList;
     $(document).ready(function () {
+        menutypeList = getDicJsonData('${ctx}/','menu');
+        classifyList = getDicJsonData('${ctx}/','classify');
+        menutypes = dicJsonToObj(menutypeList);
+        classifyList = dicJsonToObj(classifyList);
         $.jgrid.defaults.styleUI = 'Bootstrap';
         $("#table_list").jqGrid({
             datatype: "json",
-            url: '${ctx}/banner/page',
+            url: '${ctx}/fmenu/page',
             mtype : 'POST',
             height: 300,
             autowidth: true,
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['id', 'banner名称', '图片','创建时间', '操作'],
+            colNames: ['id', '类型', '菜单名称','父菜单','分类','排序','创建时间', '操作'],
             colModel: [
                 {
                     name: 'id',
@@ -125,17 +133,34 @@
                     sorttype: "int"
                 },
                 {
-                    name: 'bannerName',
-                    index: 'bannerName',
-                    width: 90
+                    name: 'type',
+                    index: 'type',
+                    width: 90,
+                    formatter : function(cellvalue, options, rowObject){
+                        return menutypes[cellvalue];
+                    }
                 },
                 {
-                    name:'path',
-                    index:'path',
-                    width : 200,
+                    name:'menuName',
+                    index:'menuName',
+                    width : 200
+                },
+                {
+                    name:'parentId',
+                    index:'parentId',
+                    width : 200
+                },{
+                    name: 'classify',
+                    index: 'classify',
+                    width: 90,
                     formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
+                        return classifys[cellvalue];
                     }
+                },
+                {
+                    name:'order',
+                    index:'order',
+                    width : 200
                 },
                 {
                     name: 'createTime',

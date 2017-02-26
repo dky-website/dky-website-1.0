@@ -45,28 +45,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="t_dictionary" domainObjectName="Dictionary"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <!--<columnRenamingRule searchString="^D_"
-                                replaceString=""/>-->
-        </table>
         <table tableName="t_front_menu" domainObjectName="FrontMenu"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <!--<columnRenamingRule searchString="^D_"
-                                replaceString=""/>-->
-        </table>
-        <table tableName="t_product" domainObjectName="Product"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <!--<columnRenamingRule searchString="^D_"
-                                replaceString=""/>-->
-        </table>
-        <table tableName="t_product_img" domainObjectName="ProductImg"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

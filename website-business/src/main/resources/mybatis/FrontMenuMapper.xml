@@ -8,7 +8,7 @@
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="classify" property="classify" jdbcType="VARCHAR" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="ordered" property="ordered" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="INTEGER" />
@@ -17,7 +17,7 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, menu_name, parent_id, classify, img_url, order, create_time, update_time, 
+    id, type, menu_name, parent_id, classify, img_url, ordered, create_time, update_time, 
     status
   </sql>
   <sql id="Blob_Column_List" >
@@ -38,11 +38,11 @@
   <insert id="insert" parameterType="com.dky.website.common.bean.FrontMenu" >
     insert into t_front_menu (id, type, menu_name, 
       parent_id, classify, img_url, 
-      order, create_time, update_time, 
+      ordered, create_time, update_time, 
       status, content)
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=BIGINT}, #{classify,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
-      #{order,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{ordered,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dky.website.common.bean.FrontMenu" >
@@ -66,8 +66,8 @@
       <if test="imgUrl != null" >
         img_url,
       </if>
-      <if test="order != null" >
-        order,
+      <if test="ordered != null" >
+        ordered,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -101,8 +101,8 @@
       <if test="imgUrl != null" >
         #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        #{order,jdbcType=INTEGER},
+      <if test="ordered != null" >
+        #{ordered,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -136,8 +136,8 @@
       <if test="imgUrl != null" >
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        order = #{order,jdbcType=INTEGER},
+      <if test="ordered != null" >
+        ordered = #{ordered,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -161,7 +161,7 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       classify = #{classify,jdbcType=VARCHAR},
       img_url = #{imgUrl,jdbcType=VARCHAR},
-      order = #{order,jdbcType=INTEGER},
+      ordered = #{ordered,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER},
@@ -175,23 +175,29 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       classify = #{classify,jdbcType=VARCHAR},
       img_url = #{imgUrl,jdbcType=VARCHAR},
-      order = #{order,jdbcType=INTEGER},
+      ordered = #{ordered,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-    <select id="query"  resultType="com.dky.website.common.bean.FrontMenu" parameterType="com.dky.website.common.bean.FrontMenu" >
+    <select id="query"  resultMap="ResultMapWithBLOBs" parameterType="com.dky.website.common.bean.FrontMenu" >
         select
         <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
         from t_front_menu
         <include refid="whereClause"></include>
     </select>
 
     <sql id="whereClause">
         <where>
-
+            <if test="id != null">and id = #{id}</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="menuName != null">and menu_name = #{menuName}</if>
+            <if test="parentId != null">and parent_id = #{parentId}</if>
+            <if test="status != null">and status = #{status}</if>
         </where>
     </sql>
 </mapper>

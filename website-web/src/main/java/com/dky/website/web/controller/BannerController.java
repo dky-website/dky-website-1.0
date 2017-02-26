@@ -32,8 +32,7 @@ public class BannerController {
      */
     @RequestMapping("list")
     public ModelAndView listPage(){
-        ModelAndView modelAndView = new ModelAndView("banner/banner-list");
-        return modelAndView;
+        return new ModelAndView("banner/banner-list");
     }
 
 
@@ -56,6 +55,11 @@ public class BannerController {
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     public ReturnT deleteBanner(@RequestParam(value = "id")Long id){
         return bannerService.deleteBanner(id);
+    }
+
+    @RequestMapping(value = "getBannerById")
+    public ReturnT getBannerById(@RequestParam(value = "id")Long id){
+        return bannerService.getBannerById(id);
     }
 
 }

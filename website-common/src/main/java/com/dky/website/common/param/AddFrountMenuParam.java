@@ -1,9 +1,13 @@
-package com.dky.website.common.bean;
+package com.dky.website.common.param;
+
+import com.dky.website.common.base.BaseParameter;
 
 import java.util.Date;
 
-public class FrontMenu {
-    private Long id;
+/**
+ * Created by wonpera on 2017/2/25.
+ */
+public class AddFrountMenuParam extends BaseParameter {
 
     private String type;
 
@@ -17,28 +21,16 @@ public class FrontMenu {
 
     private Integer ordered;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     private Integer status;
 
     private String content;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
     public String getMenuName() {
@@ -46,7 +38,7 @@ public class FrontMenu {
     }
 
     public void setMenuName(String menuName) {
-        this.menuName = menuName == null ? null : menuName.trim();
+        this.menuName = menuName;
     }
 
     public Long getParentId() {
@@ -62,7 +54,7 @@ public class FrontMenu {
     }
 
     public void setClassify(String classify) {
-        this.classify = classify == null ? null : classify.trim();
+        this.classify = classify;
     }
 
     public String getImgUrl() {
@@ -70,7 +62,7 @@ public class FrontMenu {
     }
 
     public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl == null ? null : imgUrl.trim();
+        this.imgUrl = imgUrl;
     }
 
     public Integer getOrdered() {
@@ -79,22 +71,6 @@ public class FrontMenu {
 
     public void setOrdered(Integer ordered) {
         this.ordered = ordered;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Integer getStatus() {
@@ -110,6 +86,6 @@ public class FrontMenu {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 }

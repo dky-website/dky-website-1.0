@@ -105,7 +105,7 @@
   </update>
 
 
-    <select id="query"  resultType="com.dky.website.common.bean.Banner" parameterType="com.dky.website.common.bean.Banner" >
+    <select id="query"  resultMap="BaseResultMap" parameterType="com.dky.website.common.bean.Banner" >
         select
         <include refid="Base_Column_List" />
         from t_banner
@@ -114,7 +114,10 @@
 
     <sql id="whereClause">
         <where>
-
+            <if test="id != null" >and id = #{id}</if>
+            <if test="bannerName != null and '' != bannerName" >and banner_name = #{bannerName}</if>
+            <if test="path != null and '' != path" >and path = #{path}</if>
+            <if test="status != null" >and status = #{status}</if>
         </where>
     </sql>
 </mapper>

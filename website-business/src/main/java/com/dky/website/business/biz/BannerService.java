@@ -23,4 +23,7 @@ public interface BannerService {
     ReturnT updBanner(UpdBannerParam param);
 
     ReturnT deleteBanner(Long id);
+
+
+    ReturnT<Banner> getBannerById(Long id);
 }

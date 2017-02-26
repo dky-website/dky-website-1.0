@@ -92,3 +92,25 @@ function showLoadingDialog(){
         showConfirmButton: false
     });
 }
+
+
+function getDicData(root,dicType){
+    var json = getDicJsonData(root,dicType);
+    return dicJsonToObj(json);
+}
+
+function getDicJsonData(root,dicType){
+    var json;
+    postAsync(root+$.URL.dic.getDicByType,{'dicType':dicType},function(result){
+        json = result.data;
+    });
+    return json;
+}
+
+function dicJsonToObj(json){
+    var o = {};
+    $.each(json,function(){
+        o[this.dicKey] = this.dicValue;
+    });
+    return 0;
+}

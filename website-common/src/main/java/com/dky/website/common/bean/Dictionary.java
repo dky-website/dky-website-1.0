@@ -5,11 +5,11 @@ import java.util.Date;
 public class Dictionary {
     private Long id;
 
-    private String type;
+    private String dicType;
 
-    private String key;
+    private String dicKey;
 
-    private String value;
+    private String dicValue;
 
     private Date createTime;
 
@@ -23,28 +23,28 @@ public class Dictionary {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getDicType() {
+        return dicType;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setDicType(String dicType) {
+        this.dicType = dicType == null ? null : dicType.trim();
     }
 
-    public String getKey() {
-        return key;
+    public String getDicKey() {
+        return dicKey;
     }
 
-    public void setKey(String key) {
-        this.key = key == null ? null : key.trim();
+    public void setDicKey(String dicKey) {
+        this.dicKey = dicKey == null ? null : dicKey.trim();
     }
 
-    public String getValue() {
-        return value;
+    public String getDicValue() {
+        return dicValue;
     }
 
-    public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+    public void setDicValue(String dicValue) {
+        this.dicValue = dicValue == null ? null : dicValue.trim();
     }
 
     public Date getCreateTime() {

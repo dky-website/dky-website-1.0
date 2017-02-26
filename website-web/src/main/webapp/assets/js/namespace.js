@@ -8,6 +8,9 @@
             "menu" : $base+"index/menu",
             "logout" : $base+"index/logout",
             "getSessionUser" : $base+"index/getSessionUser"
+        },
+        "dic":{
+            "getDicByType": $base+"dic/getDicByType"
         }
 
     }

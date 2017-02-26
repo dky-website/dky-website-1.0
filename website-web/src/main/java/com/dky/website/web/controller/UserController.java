@@ -35,8 +35,7 @@ public class UserController {
      */
     @RequestMapping("list")
     public ModelAndView listPage(){
-        ModelAndView modelAndView = new ModelAndView("user/user-list");
-        return modelAndView;
+        return new ModelAndView("user/user-list");
     }
 
 
