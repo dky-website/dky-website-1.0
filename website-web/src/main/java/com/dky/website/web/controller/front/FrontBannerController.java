@@ -16,7 +16,7 @@ import java.util.List;
  * Created by wonpera on 2017/2/24.
  */
 @RestController
-@RequestMapping("/front/banner")
+@RequestMapping("front/banner")
 public class FrontBannerController {
 
     @Autowired
