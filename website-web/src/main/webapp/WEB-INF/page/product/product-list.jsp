@@ -161,7 +161,10 @@
                 {
                     name:'season',
                     index:'season',
-                    width : 100
+                    width : 100,
+                    formatter : function(cellvalue, options, rowObject){
+                        return seasons[cellvalue];
+                    }
                 },
                 {
                     name:'imgUrl',
