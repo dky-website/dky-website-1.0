@@ -4,11 +4,13 @@ import com.dky.website.business.biz.FrontMenuService;
 import com.dky.website.business.mapper.FrontMenuMapper;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.FrontMenu;
+import com.dky.website.common.enums.ProductTypeEnmu;
 import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddFrountMenuParam;
 import com.dky.website.common.param.QueryFrontMenuParam;
 import com.dky.website.common.param.UpdFrontMenuParam;
 import com.dky.website.common.response.ReturnT;
+import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class FrontMenuServiceImpl implements FrontMenuService {
         FrontMenu frontMenu = new FrontMenu();
         BeanUtils.copyProperties(param,frontMenu);
         frontMenu.setStatus(StatusEnum.ENABLE.getCode());
+        frontMenu.putExtendedParameterValue("sidx","type,ordered");
+        frontMenu.putExtendedParameterValue("sord","asc");
         frontMenuMapper.query(frontMenu);
         return PageHelper.endPage();
     }
@@ -76,4 +80,26 @@ public class FrontMenuServiceImpl implements FrontMenuService {
     public ReturnT<FrontMenu> getFMenuById(Long id) {
         return new ReturnT<>().sucessData(frontMenuMapper.selectByPrimaryKey(id));
     }
+
+
+    /**
+     * 获取产品下拉，排除精选
+     * @return
+     */
+    @Override
+    public List<FrontMenu> getProductTypeWithOutChoice() {
+        FrontMenu frontMenu = new FrontMenu();
+        frontMenu.setStatus(StatusEnum.ENABLE.getCode());
+        frontMenu.setType(ProductTypeEnmu.PRODUCT.getCode());
+        frontMenu.putExtendedParameterValue("sidx","ordered");
+        frontMenu.putExtendedParameterValue("sord","asc");
+        List<FrontMenu> list = frontMenuMapper.query(frontMenu);
+        if(list.size() > 1){
+            return list.subList(1,list.size());
+        }
+       return null;
+    }
+
+
+
 }

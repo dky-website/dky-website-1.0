@@ -62,4 +62,14 @@ public class FrontMenuController {
     public ReturnT<List<FrontMenu>> getFMenuList(QueryFrontMenuParam param){
         return frontMenuService.queryFMenuList(param);
     }
+
+
+    @RequestMapping("getProductType")
+    public ReturnT<List<FrontMenu>> getProductType(){
+        List<FrontMenu> list = frontMenuService.getProductTypeWithOutChoice();
+        if(list == null){
+            return new ReturnT<>().failureData("请先配置产品菜单信息");
+        }
+        return new ReturnT<>().sucessData(list);
+    }
 }

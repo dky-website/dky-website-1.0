@@ -110,6 +110,7 @@
         <include refid="Base_Column_List" />
         from t_banner
         <include refid="whereClause"></include>
+        <include refid="extendedOrderByClause"></include>
     </select>
 
     <sql id="whereClause">
@@ -119,5 +120,12 @@
             <if test="path != null and '' != path" >and path = #{path}</if>
             <if test="status != null" >and status = #{status}</if>
         </where>
+    </sql>
+
+    <!-- 扩展的排序等语句（自定义）-->
+    <sql id="extendedOrderByClause">
+        <if test="null!=extendedParameter">
+            <if test="null!=extendedParameter.sidx and null!=extendedParameter.sord">ORDER BY ${extendedParameter.sidx}  ${extendedParameter.sord}   </if>
+        </if>
     </sql>
 </mapper>

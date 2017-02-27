@@ -26,4 +26,6 @@ public interface FrontMenuService {
     ReturnT deleteFMenu(Long id);
 
     ReturnT<FrontMenu> getFMenuById(Long id);
+
+    List<FrontMenu> getProductTypeWithOutChoice();
 }

@@ -210,7 +210,7 @@
             $('#add-contentShow').hide();
             $('#addForm select[name=classify]').change(function(){
                 var id = $(this).val();
-                if(id == 'normal'){
+                if(id == '1'){
                     $('#add-contentShow').show();
                 }else{
                     $('#add-contentShow').hide();
@@ -254,7 +254,7 @@
                 'fmenuList':fmenuList
             }));
         initImageUpload('upd_path');
-        if(data.classify != 'normal'){
+        if(data.classify != '1'){
             $('#upd-contentShow').hide();
         }
         $('#updForm select[name=classify]').change(function(){
