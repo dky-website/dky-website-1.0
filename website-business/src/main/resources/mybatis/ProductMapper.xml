@@ -127,7 +127,7 @@
   </update>
 
 
-    <select id="query"  resultType="com.dky.website.common.bean.Product" parameterType="com.dky.website.common.bean.Product" >
+    <select id="query" resultMap="BaseResultMap" parameterType="com.dky.website.common.bean.Product" >
         select
         <include refid="Base_Column_List" />
         from t_product
@@ -137,7 +137,10 @@
 
     <sql id="whereClause">
         <where>
-
+            <if test="id != null">and id = #{id}</if>
+            <if test="status != null">and status = #{status}</if>
+            <if test="type != null and ''!= type">and type = #{type}</if>
+            <if test="season != null and ''!= season">and season = #{season}</if>
         </where>
     </sql>
 
