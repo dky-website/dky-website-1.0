@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 /**
  * Created by wonpera on 2017/2/25.
  */
@@ -53,5 +55,11 @@ public class FrontMenuController {
     @RequestMapping("getFMenu")
     public ReturnT<FrontMenu> getFMenuById(@RequestParam(value = "id")Long id){
         return frontMenuService.getFMenuById(id);
+    }
+
+
+    @RequestMapping("getFMenuList")
+    public ReturnT<List<FrontMenu>> getFMenuList(QueryFrontMenuParam param){
+        return frontMenuService.queryFMenuList(param);
     }
 }

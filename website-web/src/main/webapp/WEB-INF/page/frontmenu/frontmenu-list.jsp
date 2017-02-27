@@ -113,7 +113,7 @@
         menutypeList = getDicJsonData('${ctx}/','menu');
         classifyList = getDicJsonData('${ctx}/','classify');
         menutypes = dicJsonToObj(menutypeList);
-        classifyList = dicJsonToObj(classifyList);
+        classifys = dicJsonToObj(classifyList);
         $.jgrid.defaults.styleUI = 'Bootstrap';
         $("#table_list").jqGrid({
             datatype: "json",
@@ -143,34 +143,34 @@
                 {
                     name:'menuName',
                     index:'menuName',
-                    width : 200
+                    width : 100
                 },
                 {
                     name:'parentId',
                     index:'parentId',
-                    width : 200
+                    width : 90
                 },{
                     name: 'classify',
                     index: 'classify',
-                    width: 90,
+                    width: 100,
                     formatter : function(cellvalue, options, rowObject){
                         return classifys[cellvalue];
                     }
                 },
                 {
-                    name:'order',
-                    index:'order',
-                    width : 200
+                    name:'ordered',
+                    index:'ordered',
+                    width : 90
                 },
                 {
                     name: 'createTime',
                     index: 'createTime',
-                    width: 80
+                    width: 150
                 },
                 {
                     name: 'id',
                     index: 'id',
-                    width: 150,
+                    width: 200,
                     sortable: false,
                     formatter: function(cellvalue, options, rowObject){
                         var html = '<button class="btn btn-info" name="edit-btn" onClick="goUpdate('+cellvalue+')" data-key="'+cellvalue+'" type="button"><i class="fa fa-paste"></i> 编辑</button>&nbsp;&nbsp;';
@@ -199,8 +199,23 @@
 
 
         $('#addBtn').bind('click',function(){
-            $('#add-data').html(template('add-tmpl',{}));
+            var fmenuList;
+            postAsync('${ctx}/fmenu/getFMenuList',{'parentId':0},function(result){fmenuList=result.data;});
+            $('#add-data').html(template('add-tmpl',{
+                'menutypeList':menutypeList,
+                'classifyList':classifyList,
+                'fmenuList':fmenuList
+            }));
             initImageUpload('add_path');
+            $('#add-contentShow').hide();
+            $('#addForm select[name=classify]').change(function(){
+                var id = $(this).val();
+                if(id == 'normal'){
+                    $('#add-contentShow').show();
+                }else{
+                    $('#add-contentShow').hide();
+                }
+            });
             $("#add-modal").modal({backdrop: 'static', keyboard: false});
         });
 
@@ -225,11 +240,31 @@
 
     });
 
+   
+
     function goUpdate(id){
         var data;
-        postAsync('${ctx}/banner/getBannerById',{'id':id},function(result){data=result.data});
-        $('#upd-data').html(template('upd-tmpl',{'data':data}));
+         var fmenuList;
+        postAsync('${ctx}/fmenu/getFMenuList',{'parentId':0},function(result){fmenuList=result.data;});
+        postAsync('${ctx}/fmenu/getFMenu',{'id':id},function(result){data=result.data});
+        $('#upd-data').html(template('upd-tmpl',{
+                'data':data,
+                'menutypeList':menutypeList,
+                'classifyList':classifyList,
+                'fmenuList':fmenuList
+            }));
         initImageUpload('upd_path');
+        if(data.classify != 'normal'){
+            $('#upd-contentShow').hide();
+        }
+        $('#updForm select[name=classify]').change(function(){
+                var id = $(this).val();
+                if(id == 'normal'){
+                    $('#upd-contentShow').show();
+                }else{
+                    $('#upd-contentShow').hide();
+                }
+            });
         $("#upd-modal").modal({backdrop: 'static', keyboard: false});
     }
 
@@ -243,7 +278,7 @@
         if(!validate(param)){
             return;
         }
-        postAjax('${ctx}/banner/update',param,function(result){
+        postAjax('${ctx}/fmenu/update',param,function(result){
             if(result.success){
                 $("#table_list").trigger("reloadGrid");
                 swal("提示！", "修改成功!", "success");
@@ -283,7 +318,7 @@
         if(!validate(param)){
             return;
         }
-        postAjax('${ctx}/banner/add',param,function(result){
+        postAjax('${ctx}/fmenu/add',param,function(result){
             if(result.success){
                 $("#table_list").trigger("reloadGrid");
                 swal("提示！", "新增成功!", "success");
@@ -307,7 +342,7 @@
             cancelButtonText:"取消",
             animation:"slide-from-top"
         }, function() {
-            postAjax('${ctx}/banner/delete',{'id':id},function(result){
+            postAjax('${ctx}/fmenu/delete',{'id':id},function(result){
                 if(result.success){
                     $("#table_list").trigger("reloadGrid");
                     swal("操作成功!", "已成功删除数据！", "success");
@@ -320,8 +355,16 @@
 
 
     function validate(param){
-        if (!param['path']) {
-            swal("提示信息", "图片不能为空", "error");
+        if (!param['type']) {
+            swal("提示信息", "类型不能为空", "error");
+            return false;
+        }
+        if (!param['menuName']) {
+            swal("提示信息", "菜单名称不能为空", "error");
+            return false;
+        }
+        if (!param['classify']) {
+            swal("提示信息", "显示分类不能为空", "error");
             return false;
         }
         return true;
@@ -336,62 +379,185 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-2">名称:</label>
+                <label class="control-label col-md-2">类型:</label>
                 <div class="col-md-10">
-                    <input name="bannerName" type="text"  class="form-control" placeholder="名称" />
+                    <select name="type" class="form-control" placeholder="类型">
+                    <option value="">---请选择---</option>
+                        {{each menutypeList as value i}}
+                            <option value="{{value.dicKey}}">{{value.dicValue}}</option>
+                        {{/each}}
+                    </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片:</label>
-                <div class="col-md-10">
-                    <div class="demo l_f">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="path" id="add_path" class="form-control"   />
-                            <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
 
-                    </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+            <div class="form-group">
+             <label class="control-label col-md-2">菜单名称:</label>
+                 <div class="col-md-10">
+                       <input name="menuName" type="text"  class="form-control" placeholder="昵称" />                 
+                 </div>          
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">父菜单:</label>
+                <div class="col-md-10">
+                    <select name="parentId" class="form-control" placeholder="父菜单">
+                    <option value="">---请选择---</option>
+                        {{each fmenuList as value i}}
+                            <option value="{{value.id}}">{{value.menuName}}</option>
+                        {{/each}}
+                    </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">显示分类:</label>
+                <div class="col-md-10">
+                    <select name="classify" class="form-control" placeholder="显示分类">
+                    <option value="">---请选择---</option>
+                        {{each classifyList as value i}}
+                            <option value="{{value.dicKey}}">{{value.dicValue}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+             <label class="control-label col-md-2">排序:</label>
+                 <div class="col-md-10">
+                       <input name="ordered" type="text"  class="form-control" placeholder="排序" />                 
+                 </div>          
+            </div>
+
+            <div id="add-contentShow">
+                <div class="form-group">
+                 <label class="control-label col-md-2">内容:</label>
+                     <div class="col-md-10">
+                            <textarea name="content" style="margin-top: 0px; margin-bottom: 0px; height: 100px;" class="form-control" placeholder="内容"></textarea>                
+                     </div>          
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">图片:</label>
+                    <div class="col-md-10">
+                        <div class="demo l_f">
+                            <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
+                            <div class="logoupload">
+                                <input type="hidden" name="imgUrl" id="add_path" class="form-control"   />
+                                <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                                <div style="clear:both;height:0;overflow:hidden;"></div>
+                                <div class="progress-box" style="display:none;">
+                                    <div class="progress-num">上传进度：<b>0%</b></div>
+                                    <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                </div>
+                            </div>
+
+                        </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+                    </div>
+                </div>
+            </div>
+
+            
         </div>
     </div>
 </script>
 
 
 <script id="upd-tmpl" type="text/html">
+<input type="hidden" name="id" class="form-control" value="{{data.id}}" />
     <div class="row">
-        <input name="id" type="hidden" value="{{data.id}}"  class="form-control"  />
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-2">名称:</label>
+                <label class="control-label col-md-2">类型:</label>
                 <div class="col-md-10">
-                    <input name="bannerName" type="text" value="{{data.bannerName}}"  class="form-control" placeholder="名称" />
+                    <select name="type" class="form-control" placeholder="类型">
+                    <option value="">---请选择---</option>
+                        {{each menutypeList as value i}}
+                            {{if data.type == value.dicKey }}
+                                <option value="{{value.dicKey}}" selected >{{value.dicValue}}</option>
+                                {{else}}
+                                <option value="{{value.dicKey}}">{{value.dicValue}}</option>
+                            {{/if}}
+                            }
+                        {{/each}}
+                    </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片:</label>
-                <div class="col-md-10">
-                    <div class="demo l_f">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.path}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="path" value="{{data.path}}" id="upd_path" class="form-control"   />
-                            <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
 
-                    </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+            <div class="form-group">
+             <label class="control-label col-md-2">菜单名称:</label>
+                 <div class="col-md-10">
+                       <input name="menuName" type="text" value="{{data.menuName}}" class="form-control" placeholder="昵称" />                 
+                 </div>          
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">父菜单:</label>
+                <div class="col-md-10">
+                    <select name="parentId" class="form-control" placeholder="父菜单">
+                    <option value="">---请选择---</option>
+                        {{each fmenuList as value i}}
+                        {{if data.parentId == value.id }}
+                            <option value="{{value.id}}" selected>{{value.menuName}}</option>
+                            {{else}}
+                            <option value="{{value.id}}">{{value.menuName}}</option>
+                        {{/if}}
+                        {{/each}}
+                    </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">显示分类:</label>
+                <div class="col-md-10">
+                    <select name="classify" class="form-control" placeholder="显示分类">
+                    <option value="">---请选择---</option>
+                        {{each classifyList as value i}}
+                         {{if data.classify == value.dicKey }}
+                            <option value="{{value.dicKey}}" selected>{{value.dicValue}}</option>
+                                {{else}}
+                             <option value="{{value.dicKey}}">{{value.dicValue}}</option>
+                        {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+             <label class="control-label col-md-2">排序:</label>
+                 <div class="col-md-10">
+                       <input name="ordered" type="text" value="{{data.ordered}}"  class="form-control" placeholder="排序" />                 
+                 </div>          
+            </div>
+
+            <div id="upd-contentShow">
+                <div class="form-group">
+                 <label class="control-label col-md-2">内容:</label>
+                     <div class="col-md-10">
+                            <textarea name="content" style="margin-top: 0px; margin-bottom: 0px; height: 100px;" class="form-control" placeholder="内容">{{data.content}}</textarea>                
+                     </div>          
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">图片:</label>
+                    <div class="col-md-10">
+                        <div class="demo l_f">
+                            <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.imgUrl}}" width="100px" alt="" height="100px"/></div></div>
+                            <div class="logoupload">
+                                <input type="hidden" name="imgUrl" value="{{data.imgUrl}}" id="upd_path" class="form-control"   />
+                                <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                                <div style="clear:both;height:0;overflow:hidden;"></div>
+                                <div class="progress-box" style="display:none;">
+                                    <div class="progress-num">上传进度：<b>0%</b></div>
+                                    <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                </div>
+                            </div>
+
+                        </div> <div class="prompt"><p>图片大小<b>120px*60px</b>图片大小小于5MB,</p><p>支持.jpg;.gif;.png;.jpeg格式的图片</p></div>
+                    </div>
+                </div>
+            </div>
+
+            
         </div>
     </div>
 </script>

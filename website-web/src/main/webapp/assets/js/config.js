@@ -112,5 +112,5 @@ function dicJsonToObj(json){
     $.each(json,function(){
         o[this.dicKey] = this.dicValue;
     });
-    return 0;
+    return o;
 }

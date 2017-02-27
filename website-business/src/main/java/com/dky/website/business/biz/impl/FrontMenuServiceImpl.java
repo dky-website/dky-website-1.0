@@ -59,7 +59,7 @@ public class FrontMenuServiceImpl implements FrontMenuService {
         FrontMenu frontMenu = new FrontMenu();
         BeanUtils.copyProperties(param,frontMenu);
         frontMenu.setUpdateTime(new Date());
-        frontMenuMapper.updateByPrimaryKeyWithBLOBs(frontMenu);
+        frontMenuMapper.updateByPrimaryKeySelective(frontMenu);
         return new ReturnT().successDefault();
     }
 
