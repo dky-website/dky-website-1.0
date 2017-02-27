@@ -34,6 +34,18 @@
                             <label>菜单名称:</label>
                             <input type="text" name="menuName" class="form-control">
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <label>类型:</label>
+                            <select name="type" id="searchType" class="form-control">
+                                <option value="">---请选择---</option>
+                            </select>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <label>分类:</label>
+                            <select name="classify" id="searchClassify" class="form-control">
+                                <option value="">---请选择---</option>
+                            </select>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-w-m btn-primary" id="searchBth" >查询</button>
                         <button type="button" class="btn btn-w-m btn-success" id="resetBtn">重置</button>
                     </form>
@@ -114,6 +126,14 @@
         classifyList = getDicJsonData('${ctx}/','classify');
         menutypes = dicJsonToObj(menutypeList);
         classifys = dicJsonToObj(classifyList);
+        $.each(menutypeList,function(){
+            var me = this;
+            $("<option value='"+me.dicKey+"'>"+me.dicValue+"</option>").appendTo("#searchType");
+        });
+         $.each(classifyList,function(){
+            var me = this;
+            $("<option value='"+me.dicKey+"'>"+me.dicValue+"</option>").appendTo("#searchClassify");
+        });
         $.jgrid.defaults.styleUI = 'Bootstrap';
         $("#table_list").jqGrid({
             datatype: "json",

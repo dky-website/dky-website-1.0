@@ -15,6 +15,8 @@ public class QueryFrontMenuParam extends WebPageParameter {
 
     private String classify;
 
+    private String menuName;
+
     public Integer getStatus() {
         return status;
     }
@@ -45,5 +47,13 @@ public class QueryFrontMenuParam extends WebPageParameter {
 
     public void setClassify(String classify) {
         this.classify = classify;
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 }
