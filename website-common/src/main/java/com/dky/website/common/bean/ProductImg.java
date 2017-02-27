@@ -1,8 +1,10 @@
 package com.dky.website.common.bean;
 
+import com.dky.website.common.base.BaseParameter;
+
 import java.util.Date;
 
-public class ProductImg {
+public class ProductImg extends BaseParameter {
     private Long id;
 
     private Long productId;

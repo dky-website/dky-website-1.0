@@ -1,8 +1,10 @@
 package com.dky.website.common.bean;
 
+import com.dky.website.common.base.BaseParameter;
+
 import java.util.Date;
 
-public class Menu {
+public class Menu extends BaseParameter {
     private Long id;
 
     private Long menuid;

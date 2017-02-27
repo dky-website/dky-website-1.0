@@ -132,6 +132,7 @@
         <include refid="Base_Column_List" />
         from t_product
         <include refid="whereClause"></include>
+      <include refid="extendedOrderByClause" />
     </select>
 
     <sql id="whereClause">
@@ -139,4 +140,11 @@
 
         </where>
     </sql>
+
+  <!-- 扩展的排序等语句（自定义）-->
+  <sql id="extendedOrderByClause">
+    <if test="null!=extendedParameter">
+      <if test="null!=extendedParameter.sidx and null!=extendedParameter.sord">ORDER BY ${extendedParameter.sidx}  ${extendedParameter.sord}   </if>
+    </if>
+  </sql>
 </mapper>

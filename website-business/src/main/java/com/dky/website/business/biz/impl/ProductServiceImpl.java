@@ -9,12 +9,14 @@ import com.dky.website.common.param.AddProductParam;
 import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.UpdProductParam;
 import com.dky.website.common.response.ReturnT;
+import com.google.common.collect.Maps;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wangpeng on 2017/2/27.
@@ -30,6 +32,10 @@ public class ProductServiceImpl implements ProductService {
         PageHelper.startPage(param.getPageNo(),param.getPageSize());
         Product product = new Product();
         BeanUtils.copyProperties(param,product);
+        Map<String,String> extendedParameter = Maps.newHashMap();
+        extendedParameter.put("sidx","ordered");
+        extendedParameter.put("sord","asc");
+        product.setExtendedParameter(extendedParameter);
         mapper.query(product);
         return PageHelper.endPage();
     }
@@ -38,6 +44,9 @@ public class ProductServiceImpl implements ProductService {
     public ReturnT<List<Product>> queryProductList(QueryProductParam param) {
         Product product = new Product();
         BeanUtils.copyProperties(param,product);
+        Map<String,String> extendedParameter = Maps.newHashMap();
+        extendedParameter.put("sidx","ordered");
+        extendedParameter.put("sord","asc");
         List<Product> list = mapper.query(product);
         return new ReturnT<>().sucessData(list);
     }
