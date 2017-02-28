@@ -3,6 +3,7 @@ package com.dky.website.web.controller;
 import com.dky.website.business.biz.ProductImgService;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.ProductImg;
+import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddProductImgParam;
 import com.dky.website.common.param.QueryProductImgParam;
 import com.dky.website.common.param.UpdProductImgParam;

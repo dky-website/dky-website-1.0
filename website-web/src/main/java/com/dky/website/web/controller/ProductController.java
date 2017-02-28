@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 /**
  * Created by wangpeng on 2017/2/27.
  */
@@ -36,6 +38,11 @@ public class ProductController {
     public PageHelper.Page<Product> queryProductPage(QueryProductParam param){
         param.setStatus(StatusEnum.ENABLE.getCode());
         return productService.queryProductPage(param);
+    }
+
+    @RequestMapping("getProductList")
+    public ReturnT<List<Product>> getProductList(QueryProductParam param){
+        return productService.queryProductList(param);
     }
 
     @RequestMapping(value = "add",method = RequestMethod.POST)

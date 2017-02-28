@@ -24,6 +24,4 @@ public class FrontProductController {
         return productService.queryProductList(param);
     }
 
-
-
 }

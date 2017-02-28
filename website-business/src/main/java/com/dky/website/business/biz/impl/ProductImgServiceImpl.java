@@ -31,6 +31,7 @@ public class ProductImgServiceImpl implements ProductImgService {
         PageHelper.startPage(param.getPageNo(),param.getPageSize());
         ProductImg productImg = new ProductImg();
         BeanUtils.copyProperties(param, productImg);
+        productImg.setStatus(StatusEnum.ENABLE.getCode());
         mapper.query(productImg);
         return PageHelper.endPage();
     }
@@ -39,6 +40,7 @@ public class ProductImgServiceImpl implements ProductImgService {
     public ReturnT<List<ProductImg>> queryProductImgList(QueryProductImgParam param) {
         ProductImg productImg = new ProductImg();
         BeanUtils.copyProperties(param, productImg);
+        productImg.setStatus(StatusEnum.ENABLE.getCode());
         List<ProductImg> list = mapper.query(productImg);
         return new ReturnT<>().sucessData(list);
     }

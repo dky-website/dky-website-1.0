@@ -23,6 +23,11 @@ public class FrontBannerController {
     private BannerService bannerService;
 
 
+    /**
+     * 获取首页banner图片
+     * @param param
+     * @return
+     */
     @RequestMapping("list")
     public ReturnT<List<Banner>> queryFrontBanner(QueryBannerParam param){
         return bannerService.queryBannerList(param);

@@ -7,6 +7,12 @@ import com.dky.website.common.base.WebPageParameter;
  */
 public class QueryProductImgParam extends WebPageParameter {
 
+
+    /**
+     * 状态: @see StatusEnum
+     * ENABLE(0,"启用"),
+     * DISABLED(1,"禁用"),
+     */
     private Integer status;
 
     public Integer getStatus() {

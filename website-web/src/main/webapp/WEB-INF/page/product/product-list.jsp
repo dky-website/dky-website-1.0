@@ -476,7 +476,7 @@
                         <div class="demo l_f">
                             <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.imgUrl}}" width="100px" alt="" height="100px"/></div></div>
                             <div class="logoupload">
-                                <input type="hidden" name="imgUrl" value="{{data.imgUrl}}" id="add_path" class="form-control"   />
+                                <input type="hidden" name="imgUrl" value="{{data.imgUrl}}" id="upd_path" class="form-control"   />
                                 <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
                                 <div style="clear:both;height:0;overflow:hidden;"></div>
                                 <div class="progress-box" style="display:none;">
