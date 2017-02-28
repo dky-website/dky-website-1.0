@@ -4,6 +4,7 @@ import com.dky.website.business.biz.BannerService;
 import com.dky.website.common.bean.Banner;
 import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.QueryBannerParam;
+import com.dky.website.common.response.BannerView;
 import com.dky.website.common.response.ReturnT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class FrontBannerController {
      * @return
      */
     @RequestMapping("list")
-    public ReturnT<List<Banner>> queryFrontBanner(QueryBannerParam param){
-        return bannerService.queryBannerList(param);
+    public ReturnT<List<BannerView>> queryFrontBanner(QueryBannerParam param){
+        return bannerService.queryBannerView(param);
     }
 }

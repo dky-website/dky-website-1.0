@@ -5,6 +5,7 @@ import com.dky.website.common.bean.Banner;
 import com.dky.website.common.param.AddBannerParam;
 import com.dky.website.common.param.QueryBannerParam;
 import com.dky.website.common.param.UpdBannerParam;
+import com.dky.website.common.response.BannerView;
 import com.dky.website.common.response.ReturnT;
 
 import java.util.List;
@@ -26,4 +27,6 @@ public interface BannerService {
 
 
     ReturnT<Banner> getBannerById(Long id);
+
+    ReturnT<List<BannerView>> queryBannerView(QueryBannerParam param);
 }
