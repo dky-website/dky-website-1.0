@@ -5,6 +5,7 @@ import com.dky.website.common.bean.FrontMenu;
 import com.dky.website.common.param.AddFrountMenuParam;
 import com.dky.website.common.param.QueryFrontMenuParam;
 import com.dky.website.common.param.UpdFrontMenuParam;
+import com.dky.website.common.response.FrontMenuView;
 import com.dky.website.common.response.ReturnT;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface FrontMenuService {
     ReturnT<FrontMenu> getFMenuById(Long id);
 
     List<FrontMenu> getProductTypeWithOutChoice();
+
+    ReturnT<List<FrontMenuView>> getFrontMenuView(QueryFrontMenuParam param);
 }

@@ -1,6 +1,7 @@
 package com.dky.website.common.response;
 
 import com.dky.website.common.base.BaseParameter;
+import com.dky.website.common.bean.FrontMenu;
 
 import java.util.List;
 
@@ -55,6 +56,13 @@ public class FrontMenuView extends BaseParameter {
      * 子菜单
      */
     private List<FrontMenuView> children;
+
+    /**
+     * 父菜单Id
+     */
+    private Long parentId;
+
+    private boolean hasChildren = false;
 
     public Long getId() {
         return id;
@@ -118,5 +126,36 @@ public class FrontMenuView extends BaseParameter {
 
     public void setChildren(List<FrontMenuView> children) {
         this.children = children;
+    }
+
+    public boolean isHasChildren() {
+        return hasChildren;
+    }
+
+    public void setHasChildren(boolean hasChildren) {
+        this.hasChildren = hasChildren;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public FrontMenuView toView(FrontMenu frontMenu){
+        if (frontMenu == null) {
+            return null;
+        }
+        this.id  = frontMenu.getId();
+        this.type = frontMenu.getType();
+        this.classify = frontMenu.getClassify();
+        this.menuName = frontMenu.getMenuName();
+        this.ordered = frontMenu.getOrdered();
+        this.content = frontMenu.getContent();
+        this.imgUrl = frontMenu.getImgUrl();
+        this.parentId = frontMenu.getParentId();
+        return this;
     }
 }

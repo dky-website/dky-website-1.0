@@ -3,6 +3,7 @@ package com.dky.website.web.controller.front;
 import com.dky.website.business.biz.FrontMenuService;
 import com.dky.website.common.bean.FrontMenu;
 import com.dky.website.common.param.QueryFrontMenuParam;
+import com.dky.website.common.response.FrontMenuView;
 import com.dky.website.common.response.ReturnT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class FrontFMenuController {
      * @return
      */
     @RequestMapping("list")
-    public ReturnT<List<FrontMenu>> getFrontMenuList(QueryFrontMenuParam param){
-        return frontMenuService.queryFMenuList(param);
+    public ReturnT<List<FrontMenuView>> getFrontMenuList(QueryFrontMenuParam param){
+        return frontMenuService.getFrontMenuView(param);
     }
 }
