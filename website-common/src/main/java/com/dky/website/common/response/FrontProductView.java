@@ -1,7 +1,10 @@
 package com.dky.website.common.response;
 
 import com.dky.website.common.base.BaseParameter;
+import com.dky.website.common.bean.Product;
 import com.dky.website.common.bean.ProductImg;
+import com.dky.website.common.enums.SeasonEnum;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -28,6 +31,12 @@ public class FrontProductView extends BaseParameter {
      * 季节  1:spring  2:summer  3:autumn  4:winter
      */
     private String season;
+
+
+    /**
+     * 季节名称
+     */
+    private String seasonName;
 
 
     /**
@@ -89,5 +98,25 @@ public class FrontProductView extends BaseParameter {
 
     public void setImgList(List<ProductImg> imgList) {
         this.imgList = imgList;
+    }
+
+    public String getSeasonName() {
+        return seasonName;
+    }
+
+    public void setSeasonName(String seasonName) {
+        this.seasonName = seasonName;
+    }
+
+    public FrontProductView toView(Product product){
+        this.id = product.getId();
+        this.type = product.getType();
+        if (StringUtils.isNotBlank(product.getSeason())){
+            this.season = product.getSeason();
+            this.seasonName = SeasonEnum.getEnumMessageByCode(product.getSeason());
+        }
+        this.imgUrl = product.getImgUrl();
+        this.ordered = product.getOrdered();
+        return this;
     }
 }

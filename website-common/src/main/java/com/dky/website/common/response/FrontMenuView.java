@@ -3,6 +3,7 @@ package com.dky.website.common.response;
 import com.dky.website.common.base.BaseParameter;
 import com.dky.website.common.bean.FrontMenu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -157,5 +158,16 @@ public class FrontMenuView extends BaseParameter {
         this.imgUrl = frontMenu.getImgUrl();
         this.parentId = frontMenu.getParentId();
         return this;
+    }
+
+    public List<FrontMenuView> toViewList(List<FrontMenu> list){
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        List<FrontMenuView> viewList = new ArrayList<>(list.size());
+        for (FrontMenu menu : list) {
+            viewList.add(new FrontMenuView().toView(menu));
+        }
+        return viewList;
     }
 }

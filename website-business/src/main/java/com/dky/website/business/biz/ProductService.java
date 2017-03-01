@@ -5,6 +5,7 @@ import com.dky.website.common.bean.Product;
 import com.dky.website.common.param.AddProductParam;
 import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.UpdProductParam;
+import com.dky.website.common.response.FrontProductView;
 import com.dky.website.common.response.ReturnT;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface ProductService {
     ReturnT deleteProduct(Long param);
 
     ReturnT<Product> getProductById(Long id);
+
+    ReturnT<FrontProductView> getFrontProductView(QueryProductParam param);
 }

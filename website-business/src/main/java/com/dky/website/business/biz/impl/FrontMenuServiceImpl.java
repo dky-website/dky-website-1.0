@@ -4,14 +4,13 @@ import com.dky.website.business.biz.FrontMenuService;
 import com.dky.website.business.mapper.FrontMenuMapper;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.FrontMenu;
-import com.dky.website.common.enums.ProductTypeEnmu;
+import com.dky.website.common.enums.ProductTypeEnum;
 import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddFrountMenuParam;
 import com.dky.website.common.param.QueryFrontMenuParam;
 import com.dky.website.common.param.UpdFrontMenuParam;
 import com.dky.website.common.response.FrontMenuView;
 import com.dky.website.common.response.ReturnT;
-import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,7 +91,7 @@ public class FrontMenuServiceImpl implements FrontMenuService {
     public List<FrontMenu> getProductTypeWithOutChoice() {
         FrontMenu frontMenu = new FrontMenu();
         frontMenu.setStatus(StatusEnum.ENABLE.getCode());
-        frontMenu.setType(ProductTypeEnmu.PRODUCT.getCode());
+        frontMenu.setType(ProductTypeEnum.PRODUCT.getCode());
         frontMenu.putExtendedParameterValue("sidx","ordered");
         frontMenu.putExtendedParameterValue("sord","asc");
         List<FrontMenu> list = frontMenuMapper.query(frontMenu);
@@ -108,7 +107,7 @@ public class FrontMenuServiceImpl implements FrontMenuService {
         BeanUtils.copyProperties(param, frontMenu);
         frontMenu.setStatus(StatusEnum.ENABLE.getCode());
         frontMenu.setParentId(0l);
-        frontMenu.putExtendedParameterValue("sidx","ordered");
+        frontMenu.putExtendedParameterValue("sidx","type,ordered");
         frontMenu.putExtendedParameterValue("sord","asc");
         List<FrontMenu> topList = frontMenuMapper.query(frontMenu);//查询一级菜单
         if(topList.isEmpty()){

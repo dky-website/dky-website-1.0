@@ -3,7 +3,7 @@ package com.dky.website.common.enums;
 /**
  * Created by wonpera on 2017/2/27.
  */
-public enum  ProductTypeEnmu {
+public enum ProductTypeEnum {
 
     ABOUT_US("1","关于我们"),
     PRODUCT("2","产品"),
@@ -16,7 +16,7 @@ public enum  ProductTypeEnmu {
 
     private String message;
 
-    ProductTypeEnmu(String code, String message) {
+    ProductTypeEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -35,5 +35,14 @@ public enum  ProductTypeEnmu {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public static String getEnumMessageByCode(String code){
+        for(ProductTypeEnum productTypeEnum : values()){
+            if(productTypeEnum.getCode().equals(code)){
+                return productTypeEnum.getMessage();
+            }
+        }
+        return null;
     }
 }

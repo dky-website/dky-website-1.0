@@ -1,6 +1,7 @@
 package com.dky.website.common.param;
 
 import com.dky.website.common.base.WebPageParameter;
+import com.dky.website.common.enums.StatusEnum;
 
 /**
  * Created by wangpeng on 2017/2/27.
@@ -13,7 +14,7 @@ public class QueryProductParam extends WebPageParameter {
      * ENABLE(0,"启用"),
      * DISABLED(1,"禁用"),
      */
-    private Integer status;
+    private Integer status = StatusEnum.ENABLE.getCode();
 
 
     /**
