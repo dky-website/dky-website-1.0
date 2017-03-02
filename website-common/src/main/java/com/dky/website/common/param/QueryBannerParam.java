@@ -15,11 +15,21 @@ public class QueryBannerParam extends WebPageParameter {
      */
     private Integer status;
 
+    private Integer bannerType;
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getBannerType() {
+        return bannerType;
+    }
+
+    public void setBannerType(Integer bannerType) {
+        this.bannerType = bannerType;
     }
 }

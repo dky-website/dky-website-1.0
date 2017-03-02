@@ -9,6 +9,8 @@ public class Banner extends BaseParameter {
 
     private String bannerName;
 
+    private Integer bannerType;
+
     private String path;
 
     private Integer status;
@@ -31,6 +33,14 @@ public class Banner extends BaseParameter {
 
     public void setBannerName(String bannerName) {
         this.bannerName = bannerName == null ? null : bannerName.trim();
+    }
+
+    public Integer getBannerType() {
+        return bannerType;
+    }
+
+    public void setBannerType(Integer bannerType) {
+        this.bannerType = bannerType;
     }
 
     public String getPath() {

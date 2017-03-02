@@ -17,6 +17,8 @@ public class BannerView extends BaseParameter {
 
     private String bannerName;
 
+    private String bannerType;
+
     private String path;
 
     public Long getId() {
@@ -33,6 +35,14 @@ public class BannerView extends BaseParameter {
 
     public void setBannerName(String bannerName) {
         this.bannerName = bannerName;
+    }
+
+    public String getBannerType() {
+        return bannerType;
+    }
+
+    public void setBannerType(String bannerType) {
+        this.bannerType = bannerType;
     }
 
     public String getPath() {

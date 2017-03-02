@@ -1,8 +1,7 @@
 package com.dky.website.web.controller.front;
 
 import com.dky.website.business.biz.BannerService;
-import com.dky.website.common.bean.Banner;
-import com.dky.website.common.enums.StatusEnum;
+import com.dky.website.common.enums.BannerEnum;
 import com.dky.website.common.param.QueryBannerParam;
 import com.dky.website.common.response.BannerView;
 import com.dky.website.common.response.ReturnT;
@@ -31,6 +30,18 @@ public class FrontBannerController {
      */
     @RequestMapping("list")
     public ReturnT<List<BannerView>> queryFrontBanner(QueryBannerParam param){
+        param.setBannerType(BannerEnum.INDEX.getCode());
+        return bannerService.queryBannerView(param);
+    }
+
+    /**
+     * 获取show banner图片
+     * @param param
+     * @return
+     */
+    @RequestMapping("showBannerList")
+    public ReturnT<List<BannerView>> queryFrontBannerShow(QueryBannerParam param){
+        param.setBannerType(BannerEnum.SHOW.getCode());
         return bannerService.queryBannerView(param);
     }
 }
