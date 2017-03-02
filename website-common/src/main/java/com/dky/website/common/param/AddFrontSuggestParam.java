@@ -5,7 +5,7 @@ import com.dky.website.common.base.BaseParameter;
 /**
  * Created by wonpera on 2017/2/24.
  */
-public class AddSuggestParam extends BaseParameter {
+public class AddFrontSuggestParam extends BaseParameter {
 
     private String name;
 

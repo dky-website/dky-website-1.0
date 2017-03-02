@@ -1,7 +1,7 @@
 package com.dky.website.web.controller.front;
 
 import com.dky.website.business.biz.SuggestService;
-import com.dky.website.common.param.AddSuggestParam;
+import com.dky.website.common.param.AddFrontSuggestParam;
 import com.dky.website.common.response.ReturnT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class FrontSuggestController {
 
 
     @RequestMapping("addSuggest")
-    public ReturnT getProductWithImg(AddSuggestParam param){
+    public ReturnT getProductWithImg(AddFrontSuggestParam param){
         return suggestService.addSuggest(param);
     }
 }
