@@ -65,4 +65,7 @@ public class GlobConts {
     public static final String UPLOAD_IMAGE_FATH = "assets/img/upload/";
 
     public static final String DEFUALT_PASSWORD = "123456";
+
+
+    public static final String RESPONSE_ENCODING = "response.encoding";
 }
