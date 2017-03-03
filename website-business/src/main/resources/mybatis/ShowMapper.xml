@@ -1,32 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dky.website.business.mapper.ShowMapper" >
-  <resultMap id="BaseResultMap" type="com.dky.website.common.bean.Show" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="showSeason" property="showseason" jdbcType="VARCHAR" />
-    <result column="image1" property="image1" jdbcType="VARCHAR" />
-    <result column="image2" property="image2" jdbcType="VARCHAR" />
-    <result column="image3" property="image3" jdbcType="VARCHAR" />
-    <result column="image4" property="image4" jdbcType="VARCHAR" />
-    <result column="image5" property="image5" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dky.website.business.mapper.ShowMapper">
+  <resultMap id="BaseResultMap" type="com.dky.website.common.bean.Show">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="showSeason" jdbcType="VARCHAR" property="showseason" />
+    <result column="image1" jdbcType="VARCHAR" property="image1" />
+    <result column="image2" jdbcType="VARCHAR" property="image2" />
+    <result column="image3" jdbcType="VARCHAR" property="image3" />
+    <result column="image4" jdbcType="VARCHAR" property="image4" />
+    <result column="image5" jdbcType="VARCHAR" property="image5" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, showSeason, image1, image2, image3, image4, image5, createTime, updateTime, status
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_show
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_show
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.dky.website.common.bean.Show" >
+  <insert id="insert" parameterType="com.dky.website.common.bean.Show">
     insert into t_show (id, showSeason, image1, 
       image2, image3, image4, 
       image5, createTime, updateTime, 
@@ -36,107 +36,107 @@
       #{image5,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.dky.website.common.bean.Show" >
+  <insert id="insertSelective" parameterType="com.dky.website.common.bean.Show">
     insert into t_show
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="showseason != null" >
+      <if test="showseason != null">
         showSeason,
       </if>
-      <if test="image1 != null" >
+      <if test="image1 != null">
         image1,
       </if>
-      <if test="image2 != null" >
+      <if test="image2 != null">
         image2,
       </if>
-      <if test="image3 != null" >
+      <if test="image3 != null">
         image3,
       </if>
-      <if test="image4 != null" >
+      <if test="image4 != null">
         image4,
       </if>
-      <if test="image5 != null" >
+      <if test="image5 != null">
         image5,
       </if>
-      <if test="createtime != null" >
+      <if test="createtime != null">
         createTime,
       </if>
-      <if test="updatetime != null" >
+      <if test="updatetime != null">
         updateTime,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="showseason != null" >
+      <if test="showseason != null">
         #{showseason,jdbcType=VARCHAR},
       </if>
-      <if test="image1 != null" >
+      <if test="image1 != null">
         #{image1,jdbcType=VARCHAR},
       </if>
-      <if test="image2 != null" >
+      <if test="image2 != null">
         #{image2,jdbcType=VARCHAR},
       </if>
-      <if test="image3 != null" >
+      <if test="image3 != null">
         #{image3,jdbcType=VARCHAR},
       </if>
-      <if test="image4 != null" >
+      <if test="image4 != null">
         #{image4,jdbcType=VARCHAR},
       </if>
-      <if test="image5 != null" >
+      <if test="image5 != null">
         #{image5,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
+      <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null" >
+      <if test="updatetime != null">
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dky.website.common.bean.Show" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.dky.website.common.bean.Show">
     update t_show
-    <set >
-      <if test="showseason != null" >
+    <set>
+      <if test="showseason != null">
         showSeason = #{showseason,jdbcType=VARCHAR},
       </if>
-      <if test="image1 != null" >
+      <if test="image1 != null">
         image1 = #{image1,jdbcType=VARCHAR},
       </if>
-      <if test="image2 != null" >
+      <if test="image2 != null">
         image2 = #{image2,jdbcType=VARCHAR},
       </if>
-      <if test="image3 != null" >
+      <if test="image3 != null">
         image3 = #{image3,jdbcType=VARCHAR},
       </if>
-      <if test="image4 != null" >
+      <if test="image4 != null">
         image4 = #{image4,jdbcType=VARCHAR},
       </if>
-      <if test="image5 != null" >
+      <if test="image5 != null">
         image5 = #{image5,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
+      <if test="createtime != null">
         createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null" >
+      <if test="updatetime != null">
         updateTime = #{updatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dky.website.common.bean.Show" >
+  <update id="updateByPrimaryKey" parameterType="com.dky.website.common.bean.Show">
     update t_show
     set showSeason = #{showseason,jdbcType=VARCHAR},
       image1 = #{image1,jdbcType=VARCHAR},
@@ -149,4 +149,24 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="getShowView" parameterType="java.lang.Long" resultType="ShowView">
+    select
+      id, showSeason, image1, image2, image3, image4, image5
+    from t_show
+    where 1=1
+    <if test="id != null">
+      and id = #{id,jdbcType=BIGINT}
+    </if>
+    order by createTime desc
+    limit 0,1
+  </select>
+
+  <select id="queryOldShowList" resultType="ShowView">
+    select
+      id, showSeason, image1
+    from t_show
+    order by createTime desc
+    limit 1,3
+  </select>
 </mapper>
