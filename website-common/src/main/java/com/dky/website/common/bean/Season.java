@@ -2,7 +2,7 @@ package com.dky.website.common.bean;
 
 import java.util.Date;
 
-public class Show {
+public class Season {
     private Long id;
 
     private String season;

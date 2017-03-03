@@ -18,7 +18,7 @@
 		<property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
 		<!-- 自动扫描po目录, 省掉Configuration.xml里的手工配置 -->
-		<property name="typeAliasesPackage" value="com.dky.website.common.bean" />
+		<property name="typeAliasesPackage" value="com.dky.website.common.bean;com.dky.website.common.response" />
 		<!-- 显式指定Mapper文件位置 -->
 		<property name="mapperLocations" value="classpath:/mybatis/*Mapper.xml" />
         <property name="plugins">
