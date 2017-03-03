@@ -2,6 +2,7 @@ package com.dky.website.business.mapper;
 
 import com.dky.website.common.bean.Suggest;
 
+@MyBatisRepository
 public interface SuggestMapper {
     int deleteByPrimaryKey(Long id);
 
