@@ -112,7 +112,10 @@
     </where>
   </sql>
 
-  <select id="querySeasonList" parameterType="com.dky.website.common.bean.Season" resultType="com.dky.website.common.bean.Season">
-    select <include refid="whereClause"></include>
+  <select id="querySeasonList" parameterType="com.dky.website.common.bean.Season" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_season
+    where 1=1
+    <include refid="whereClause" />
   </select>
 </mapper>
