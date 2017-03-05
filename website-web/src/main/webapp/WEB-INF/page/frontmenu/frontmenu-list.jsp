@@ -236,6 +236,15 @@
                     $('#add-contentShow').hide();
                 }
             });
+            $('#menuEnNameShow').hide();
+            $('#addForm select[name=type]').change(function(){
+                var id = $(this).val();
+                if(id == '2'){
+                    $('#menuEnNameShow').show();
+                }else{
+                    $('#menuEnNameShow').hide();
+                }
+            });
             $("#add-modal").modal({backdrop: 'static', keyboard: false});
         });
 
@@ -283,6 +292,17 @@
                     $('#upd-contentShow').show();
                 }else{
                     $('#upd-contentShow').hide();
+                }
+            });
+        if(data.type != '2'){
+            $('#updMenuEnNameShow').hide();
+        }
+            $('#updForm select[name=type]').change(function(){
+                var id = $(this).val();
+                if(id == '2'){
+                    $('#updMenuEnNameShow').show();
+                }else{
+                    $('#updMenuEnNameShow').hide();
                 }
             });
         $("#upd-modal").modal({backdrop: 'static', keyboard: false});
@@ -417,6 +437,13 @@
                  </div>          
             </div>
 
+            <div id="menuEnNameShow" class="form-group">
+             <label class="control-label col-md-2">英文名称:</label>
+                 <div class="col-md-10">
+                       <input name="menuEnName" type="text"  class="form-control" placeholder="菜单英文名称" />                 
+                 </div>          
+            </div>
+
             <div class="form-group">
                 <label class="control-label col-md-2">父菜单:</label>
                 <div class="col-md-10">
@@ -507,6 +534,13 @@
              <label class="control-label col-md-2">菜单名称:</label>
                  <div class="col-md-10">
                        <input name="menuName" type="text" value="{{data.menuName}}" class="form-control" placeholder="昵称" />                 
+                 </div>          
+            </div>
+
+             <div id="updMenuEnNameShow" class="form-group">
+             <label class="control-label col-md-2">英文名称:</label>
+                 <div class="col-md-10">
+                       <input name="menuEnName" type="text" value="{{data.menuEnName}}"  class="form-control" placeholder="菜单英文名称" />                 
                  </div>          
             </div>
 

@@ -4,6 +4,7 @@ import com.dky.website.common.bean.Season;
 
 import java.util.List;
 
+
 @MyBatisRepository
 public interface SeasonMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,5 +19,5 @@ public interface SeasonMapper {
 
     int updateByPrimaryKey(Season record);
 
-    List<Season> querySeasonList(Season record);
+    List<Season> query(Season record);
 }

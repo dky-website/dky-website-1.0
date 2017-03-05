@@ -8,9 +8,12 @@ import com.dky.website.common.enums.ProductTypeEnum;
 import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddFrountMenuParam;
 import com.dky.website.common.param.QueryFrontMenuParam;
+import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.UpdFrontMenuParam;
 import com.dky.website.common.response.FrontMenuView;
+import com.dky.website.common.response.ProductTypeView;
 import com.dky.website.common.response.ReturnT;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,6 +123,39 @@ public class FrontMenuServiceImpl implements FrontMenuService {
             frontMenuViewList.add(frontMenuView);
         }
         return new ReturnT<>().sucessData(frontMenuViewList);
+    }
+
+
+    /**
+     * 获取产品类型列表
+     * @param param
+     * @return
+     */
+    @Override
+    public ReturnT<List<ProductTypeView>> getProductTypeView(QueryProductParam param) {
+        FrontMenu frontMenu = new FrontMenu();
+        if(StringUtils.isNoneBlank(param.getType())){
+            frontMenu.setId(Long.parseLong(param.getType()));
+        }
+        frontMenu.setStatus(StatusEnum.ENABLE.getCode());
+        frontMenu.setType(ProductTypeEnum.PRODUCT.getCode());
+        frontMenu.putExtendedParameterValue("sidx","ordered");
+        frontMenu.putExtendedParameterValue("sord","asc");
+        List<FrontMenu> list = frontMenuMapper.query(frontMenu);
+        if(StringUtils.isEmpty(param.getType())){//查询精选
+            if(list.size() > 1){
+                list = list.subList(1,list.size());
+                List<ProductTypeView> viewList = new ProductTypeView().toViewList(list);
+                return new ReturnT<>().sucessData(viewList);
+            }else {
+                new ReturnT<>().failureData("没有符合条件的数据");
+            }
+        }
+       //查询单独
+        FrontMenu menu = list.get(0);
+        List<ProductTypeView> viewList = new ArrayList<>();
+        viewList.add(new ProductTypeView().toView(menu));
+        return new ReturnT<>().sucessData(viewList);
     }
 
     private void processMenuList(FrontMenuView frontMenuView){

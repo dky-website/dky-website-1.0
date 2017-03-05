@@ -17,7 +17,7 @@ public class BannerView extends BaseParameter {
 
     private String bannerName;
 
-    private String bannerType;
+    private Integer bannerType;
 
     private String path;
 
@@ -37,11 +37,11 @@ public class BannerView extends BaseParameter {
         this.bannerName = bannerName;
     }
 
-    public String getBannerType() {
+    public Integer getBannerType() {
         return bannerType;
     }
 
-    public void setBannerType(String bannerType) {
+    public void setBannerType(Integer bannerType) {
         this.bannerType = bannerType;
     }
 
@@ -54,10 +54,11 @@ public class BannerView extends BaseParameter {
     }
 
     public BannerView toView(Banner banner){
+        BannerView bannerView = new BannerView();
         if(banner != null){
-            BeanUtils.copyProperties(banner,this);
+            BeanUtils.copyProperties(banner,bannerView);
         }
-        return this;
+        return bannerView;
     }
 
     public List<BannerView> toViewList(List<Banner> list){

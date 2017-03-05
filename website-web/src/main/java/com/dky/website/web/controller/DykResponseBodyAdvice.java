@@ -5,6 +5,8 @@ import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.utils.PropertieUtils;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
@@ -22,11 +24,15 @@ import java.io.IOException;
 
 
 /**
- * Created by wonpera on 2017/1/7.
- */
+* Created by wonpera on 2017/1/7.
+*/
 @Order(Integer.MAX_VALUE)
 @ControllerAdvice(basePackages = "com.dky.website.web.controller")
 public class DykResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+
+    @Autowired
+    @Qualifier("gsonFormatter")
+    private Gson gson;
 
 
 
@@ -38,10 +44,9 @@ public class DykResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         HttpServletRequest request = ((ServletServerHttpRequest)serverHttpRequest).getServletRequest();
-        String callback = request.getParameter("callback");
+        String callback = request.getParameter(GlobConts.CALLBACK);
         if(StringUtils.isNoneBlank(callback)){
-            ReturnT returnT = (ReturnT) body;
-            String result = callback + "(" + new Gson().toJson(returnT) +")";
+            String result = callback.concat("(").concat(gson.toJson(body)).concat(")");
             HttpServletResponse response = ((ServletServerHttpResponse)serverHttpResponse).getServletResponse();
             writeResponse(response,result);
             return null;

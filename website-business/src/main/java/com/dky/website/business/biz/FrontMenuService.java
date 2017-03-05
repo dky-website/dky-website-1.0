@@ -4,8 +4,10 @@ import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.FrontMenu;
 import com.dky.website.common.param.AddFrountMenuParam;
 import com.dky.website.common.param.QueryFrontMenuParam;
+import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.UpdFrontMenuParam;
 import com.dky.website.common.response.FrontMenuView;
+import com.dky.website.common.response.ProductTypeView;
 import com.dky.website.common.response.ReturnT;
 
 import java.util.List;
@@ -31,4 +33,6 @@ public interface FrontMenuService {
     List<FrontMenu> getProductTypeWithOutChoice();
 
     ReturnT<List<FrontMenuView>> getFrontMenuView(QueryFrontMenuParam param);
+
+    ReturnT<List<ProductTypeView>> getProductTypeView(QueryProductParam param);
 }

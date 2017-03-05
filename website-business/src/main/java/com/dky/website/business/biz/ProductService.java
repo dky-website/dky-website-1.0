@@ -28,4 +28,6 @@ public interface ProductService {
     ReturnT<Product> getProductById(Long id);
 
     ReturnT<FrontProductView> getFrontProductView(QueryProductParam param);
+
+    ReturnT<List<FrontProductView>> getFrontProduct(QueryProductParam param);
 }

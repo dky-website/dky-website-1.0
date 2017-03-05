@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_en_name" property="menuEnName" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="classify" property="classify" jdbcType="VARCHAR" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
@@ -17,7 +18,7 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, menu_name, parent_id, classify, img_url, ordered, create_time, update_time, 
+    id, type, menu_name,menu_en_name, parent_id, classify, img_url, ordered, create_time, update_time,
     status
   </sql>
   <sql id="Blob_Column_List" >
@@ -36,11 +37,11 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.dky.website.common.bean.FrontMenu" >
-    insert into t_front_menu (id, type, menu_name, 
+    insert into t_front_menu (id, type, menu_name, menu_en_name,
       parent_id, classify, img_url, 
       ordered, create_time, update_time, 
       status, content)
-    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuEnName,jdbcType=VARCHAR},
       #{parentId,jdbcType=BIGINT}, #{classify,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
       #{ordered,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
@@ -57,6 +58,9 @@
       <if test="menuName != null" >
         menu_name,
       </if>
+        <if test="menuEnName != null" >
+            menu_en_name,
+        </if>
       <if test="parentId != null" >
         parent_id,
       </if>
@@ -91,6 +95,9 @@
       </if>
       <if test="menuName != null" >
         #{menuName,jdbcType=VARCHAR},
+      </if>
+        <if test="menuEnName != null" >
+        #{menuEnName,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=BIGINT},
@@ -127,6 +134,9 @@
       <if test="menuName != null" >
         menu_name = #{menuName,jdbcType=VARCHAR},
       </if>
+        <if test="menuEnName != null" >
+        menu_en_name = #{menuEnName,jdbcType=VARCHAR},
+      </if>
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=BIGINT},
       </if>
@@ -158,6 +168,7 @@
     update t_front_menu
     set type = #{type,jdbcType=VARCHAR},
       menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_en_name = #{menuEn_Name,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
       classify = #{classify,jdbcType=VARCHAR},
       img_url = #{imgUrl,jdbcType=VARCHAR},
@@ -172,6 +183,7 @@
     update t_front_menu
     set type = #{type,jdbcType=VARCHAR},
       menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_en_name = #{menuEnName,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
       classify = #{classify,jdbcType=VARCHAR},
       img_url = #{imgUrl,jdbcType=VARCHAR},
@@ -198,6 +210,7 @@
             <if test="type != null and ''!= type">and type = #{type}</if>
             <if test="classify != null and ''!= classify">and classify = #{classify}</if>
             <if test="menuName != null and ''!= menuName">and menu_name = #{menuName}</if>
+            <if test="menuEnName != null and ''!= menuEnName">and menu_en_name = #{menuEnName}</if>
             <if test="parentId != null">and parent_id = #{parentId}</if>
             <if test="status != null">and status = #{status}</if>
         </where>

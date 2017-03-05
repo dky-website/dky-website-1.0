@@ -26,6 +26,8 @@ public class UpdFrontMenuParam extends BaseParameter {
 
     private String content;
 
+    private String menuEnName;
+
     public Long getId() {
         return id;
     }
@@ -96,5 +98,13 @@ public class UpdFrontMenuParam extends BaseParameter {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getMenuEnName() {
+        return menuEnName;
+    }
+
+    public void setMenuEnName(String menuEnName) {
+        this.menuEnName = menuEnName;
     }
 }

@@ -27,6 +27,9 @@ public class FrontProductView extends BaseParameter {
     private String type;
 
 
+    private String typeName;
+
+
     /**
      * 季节  1:spring  2:summer  3:autumn  4:winter
      */
@@ -111,12 +114,17 @@ public class FrontProductView extends BaseParameter {
     public FrontProductView toView(Product product){
         this.id = product.getId();
         this.type = product.getType();
-        if (StringUtils.isNotBlank(product.getSeason())){
-            this.season = product.getSeason();
-            this.seasonName = SeasonEnum.getEnumMessageByCode(product.getSeason());
-        }
+        this.season = product.getSeason();
         this.imgUrl = product.getImgUrl();
         this.ordered = product.getOrdered();
         return this;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 }

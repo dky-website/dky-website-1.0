@@ -34,6 +34,14 @@
                             <label>banner名称:</label>
                             <input type="text" name="bannerName" class="form-control">
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group">
+                            <label>banner类型:</label>
+                            <select name="bannerType" id="bannerType" class="form-control">
+                                <option value="">---请选择---</option>
+                                <option value="1">首页</option>
+                                <option value="2">show</option>
+                            </select>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-w-m btn-primary" id="searchBth" >查询</button>
                         <button type="button" class="btn btn-w-m btn-success" id="resetBtn">重置</button>
                     </form>
@@ -116,13 +124,25 @@
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['id', 'banner名称', '图片','创建时间', '操作'],
+            colNames: ['id','banner类型', 'banner名称', '图片','创建时间', '操作'],
             colModel: [
                 {
                     name: 'id',
                     index: 'id',
                     width: 60,
                     sorttype: "int"
+                },
+                {
+                    name: 'bannerType',
+                    index: 'bannerType',
+                    width: 90,
+                    formatter : function(cellvalue, options, rowObject){
+                        if(cellvalue == '1'){
+                            return '首页';
+                        }else{
+                            return 'show';
+                        }
+                    }
                 },
                 {
                     name: 'bannerName',
@@ -317,6 +337,15 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-md-2">名称:</label>
+                <div class="col-md-10">
+                   <select name="bannerType" class="form-control" placeholder="类型">
+                       <option value="1">首页</option>
+                       <option value="2">show</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-md-2">图片:</label>
                 <div class="col-md-10">
                     <div class="demo l_f">
@@ -347,6 +376,20 @@
                 <label class="control-label col-md-2">名称:</label>
                 <div class="col-md-10">
                     <input name="bannerName" type="text" value="{{data.bannerName}}"  class="form-control" placeholder="名称" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">名称:</label>
+                <div class="col-md-10">
+                   <select name="bannerType" class="form-control" placeholder="类型">
+                   {{if data.bannerType == 1}}
+                       <option value="1" selected>首页</option>
+                       <option value="2">show</option>
+                       {{else}}
+                         <option value="1">首页</option>
+                       <option value="2" selected>show</option>
+                    {{/if}}
+                    </select>
                 </div>
             </div>
             <div class="form-group">

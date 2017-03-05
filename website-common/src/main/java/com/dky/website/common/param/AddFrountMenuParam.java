@@ -25,6 +25,8 @@ public class AddFrountMenuParam extends BaseParameter {
 
     private String content;
 
+    private String menuEnName;
+
     public String getType() {
         return type;
     }
@@ -87,5 +89,13 @@ public class AddFrountMenuParam extends BaseParameter {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getMenuEnName() {
+        return menuEnName;
+    }
+
+    public void setMenuEnName(String menuEnName) {
+        this.menuEnName = menuEnName;
     }
 }

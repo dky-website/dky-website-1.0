@@ -119,7 +119,10 @@
     var typeList;
     $(document).ready(function () {
         seasonList = getDicJsonData('${ctx}/','season');
-        seasons = dicJsonToObj(seasonList);
+        postAsync('${ctx}/season/getSeanList',{},function(result){seasonList=result.data;})
+        $.each(seasonList,function(){
+            seasons[this.type] = this.name;
+        });
         postAsync('${ctx}/fmenu/getProductType',{},function(result){typeList=result.data;})
         $.each(typeList,function(){
             types[this.id] = this.menuName;
@@ -130,7 +133,7 @@
         });
         $.each(seasonList,function(){
             var me = this;
-            $("<option value='"+me.dicKey+"'>"+me.dicValue+"</option>").appendTo("#searchSeason");
+            $("<option value='"+me.type+"'>"+me.name+"</option>").appendTo("#searchSeason");
         });
         $.jgrid.defaults.styleUI = 'Bootstrap';
         $("#table_list").jqGrid({
@@ -389,7 +392,7 @@
                     <select name="season" class="form-control" placeholder="季节">
                     <option value="">---请选择---</option>
                         {{each seasonList as value i}}
-                            <option value="{{value.dicKey}}">{{value.dicValue}}</option>
+                            <option value="{{value.type}}">{{value.name}}</option>
                         {{/each}}
                     </select>
                 </div>
@@ -453,10 +456,10 @@
                     <select name="season" class="form-control" placeholder="季节">
                     <option value="">---请选择---</option>
                         {{each seasonList as value i}}
-                            {{if data.season==value.dicKey}}
-                            <option value="{{value.dicKey}}" selected>{{value.dicValue}}</option>
+                            {{if data.season==value.type}}
+                            <option value="{{value.type}}" selected>{{value.name}}</option>
                             {{else}}
-                            <option value="{{value.dicKey}}">{{value.dicValue}}</option>
+                            <option value="{{value.type}}">{{value.name}}</option>
                             {{/if}}
                         {{/each}}
                     </select>
