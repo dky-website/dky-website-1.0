@@ -64,4 +64,5 @@ public class Season extends BaseParameter{
     public void setStatus(Integer status) {
         this.status = status;
     }
+
 }

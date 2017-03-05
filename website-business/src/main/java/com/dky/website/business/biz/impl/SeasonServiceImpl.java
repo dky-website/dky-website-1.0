@@ -109,4 +109,5 @@ public class SeasonServiceImpl implements SeasonService{
         List<SeasonView> viewList = new SeasonView().toViewList(list);
         return new ReturnT<>().sucessData(viewList);
     }
+
 }

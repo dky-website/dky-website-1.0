@@ -20,4 +20,5 @@ public interface SeasonMapper {
     int updateByPrimaryKey(Season record);
 
     List<Season> query(Season record);
+
 }

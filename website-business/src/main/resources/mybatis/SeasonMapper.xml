@@ -112,6 +112,7 @@
         <include refid="extendedOrderByClause"></include>
     </select>
 
+
     <sql id="whereClause">
         <where>
             <if test="id != null">and id = #{id}</if>
