@@ -5,13 +5,15 @@ import java.util.Date;
 public class Season {
     private Long id;
 
-    private String season;
+    private String name;
 
     private Short type;
 
     private Date createtime;
 
     private Date updatetime;
+
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -21,12 +23,12 @@ public class Season {
         this.id = id;
     }
 
-    public String getSeason() {
-        return season;
+    public String getName() {
+        return name;
     }
 
-    public void setSeason(String season) {
-        this.season = season == null ? null : season.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Short getType() {
@@ -51,5 +53,13 @@ public class Season {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

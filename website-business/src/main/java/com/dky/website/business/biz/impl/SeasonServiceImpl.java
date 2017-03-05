@@ -4,6 +4,7 @@ import com.dky.website.business.biz.SeasonService;
 import com.dky.website.business.mapper.SeasonMapper;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.Season;
+import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddSeasonParam;
 import com.dky.website.common.param.QuerySeasonParam;
 import com.dky.website.common.param.UpdateSeasonParam;
@@ -30,6 +31,7 @@ public class SeasonServiceImpl implements SeasonService{
         PageHelper.startPage(param.getPageNo(),param.getPageSize());
         Season season = new Season();
         BeanUtils.copyProperties(param, season);
+        season.setStatus(StatusEnum.ENABLE.getCode());
         mapper.querySeasonList(season);
         return PageHelper.endPage();
     }
@@ -41,6 +43,7 @@ public class SeasonServiceImpl implements SeasonService{
         Date now = new Date();
         season.setCreatetime(now);
         season.setUpdatetime(now);
+        season.setStatus(StatusEnum.ENABLE.getCode());
         mapper.insert(season);
         return new ReturnT().successDefault();
     }
