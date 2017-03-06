@@ -45,7 +45,7 @@
             <artifactId>jsp-api</artifactId>
         </dependency>
 
-        <!-- inner modules -->
+        <!-- inner modules-->
         <dependency>
             <groupId>com.dky.website</groupId>
             <artifactId>website-business</artifactId>

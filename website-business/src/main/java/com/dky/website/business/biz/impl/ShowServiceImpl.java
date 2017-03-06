@@ -4,11 +4,11 @@ import com.dky.website.business.biz.ShowService;
 import com.dky.website.business.biz.SuggestService;
 import com.dky.website.business.mapper.ShowMapper;
 import com.dky.website.business.mapper.SuggestMapper;
+import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.Show;
 import com.dky.website.common.bean.Suggest;
 import com.dky.website.common.enums.StatusEnum;
-import com.dky.website.common.param.AddFrontSuggestParam;
-import com.dky.website.common.param.QueryFrontShowParam;
+import com.dky.website.common.param.*;
 import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.response.ShowPageView;
 import com.dky.website.common.response.ShowView;
@@ -43,5 +43,49 @@ public class ShowServiceImpl implements ShowService {
         ReturnT<ShowView> result = new ReturnT<>();
         result.setData(showMapper.getShowView(param.getId()));
         return result.successDefault();
+    }
+
+    @Override
+    public PageHelper.Page<Show> queryShowPage(QueryFrontShowParam param) {
+        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        Show show = new Show();
+        BeanUtils.copyProperties(param,show);
+        show.setStatus(StatusEnum.ENABLE.getCode());
+        showMapper.query(show);
+        return PageHelper.endPage();
+    }
+
+    @Override
+    public ReturnT addShow(AddShowParam param) {
+        Show show = new Show();
+        BeanUtils.copyProperties(param,show);
+        show.setStatus(StatusEnum.ENABLE.getCode());
+        show.setCreatetime(new Date());
+        show.setUpdatetime(new Date());
+        showMapper.insertSelective(show);
+        return new ReturnT().successDefault();
+    }
+
+    @Override
+    public ReturnT updateShow(UpdShowParam param) {
+        Show show = new Show();
+        BeanUtils.copyProperties(param,show);
+        show.setUpdatetime(new Date());
+        showMapper.updateByPrimaryKeySelective(show);
+        return new ReturnT().successDefault();
+    }
+
+    @Override
+    public ReturnT deleteShow(Long id) {
+        Show show = new Show();
+        show.setStatus(StatusEnum.DISABLED.getCode());
+        show.setId(id);
+        showMapper.updateByPrimaryKeySelective(show);
+        return new ReturnT().successDefault();
+    }
+
+    @Override
+    public ReturnT<Show> getShowById(Long id) {
+        return new ReturnT<>().sucessData(showMapper.selectByPrimaryKey(id));
     }
 }

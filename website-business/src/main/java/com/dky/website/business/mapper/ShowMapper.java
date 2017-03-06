@@ -23,4 +23,6 @@ public interface ShowMapper {
     ShowView getShowView(@Param("id")Long id);
 
     List<ShowView> queryOldShowList();
+
+    List<Show> query(Show show);
 }

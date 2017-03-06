@@ -36,7 +36,11 @@
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group">
                             <label>季节代码:</label>
-                            <input type="text" name="type" class="form-control">
+                            <select name="type" class="form-control">
+                                <option value="">---请选择---</option>
+                                <option value="1">产品</option>
+                                <option value="2">show</option>
+                            </select>
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-w-m btn-primary" id="searchBth" >查询</button>
                         <button type="button" class="btn btn-w-m btn-success" id="resetBtn">重置</button>
@@ -127,7 +131,7 @@
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['id', '季节名称','季节代码','创建时间', '操作'],
+            colNames: ['id', '季节名称','季节类型','创建时间', '操作'],
             colModel: [
                 {
                     name: 'id',
@@ -143,7 +147,14 @@
                 {
                     name:'type',
                     index:'type',
-                    width : 100
+                    width : 100,
+                    formatter: function(cellvalue, options, rowObject){
+                        if(cellvalue == '1'){
+                            return '产品';
+                        }else{
+                            return 'show';
+                        }
+                    }
                 },
                 {
                     name: 'createtime',
@@ -332,9 +343,13 @@
                 </div>
             </div>
 			<div class="form-group">
-                <label class="control-label col-md-2">季节代码:</label>
+                <label class="control-label col-md-2">季节类型:</label>
                 <div class="col-md-10">
-                <input type="text" name="type" class="form-control" placeholder="季节代码">
+                <select name="type" class="form-control" >
+                    <option value="">---请选择---</option>
+                    <option value="1">产品</option>
+                    <option value="2">show</option>
+                </select>
                 </div>
             </div>
         </div>
@@ -353,9 +368,18 @@
                 </div>
             </div>
 			<div class="form-group">
-                <label class="control-label col-md-2">季节代码:</label>
+                <label class="control-label col-md-2">季节类型:</label>
                 <div class="col-md-10">
-                <input type="text" name="type" value="{{data.type}}" class="form-control" placeholder="季节代码">
+                <select name="type" class="form-control" >
+                    <option value="">---请选择---</option>
+                    {{if data.type == 1}}
+                    <option value="1" selected>产品</option>
+                    <option value="2">show</option>
+                    {{else}}
+                     <option value="1">产品</option>
+                    <option value="2" selected>show</option>
+                    {{/if}}
+                </select>
                 </div>
             </div>
         </div>

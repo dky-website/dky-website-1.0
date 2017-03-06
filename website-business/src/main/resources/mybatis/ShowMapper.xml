@@ -152,21 +152,46 @@
 
   <select id="getShowView" parameterType="java.lang.Long" resultType="ShowView">
     select
-      id, showSeason, image1, image2, image3, image4, image5
-    from t_show
-    where 1=1
+      t.id, s.name as showSeason, t.image1, t.image2, t.image3, t.image4, t.image5
+    from t_show t
+      left join t_season s on t.showSeason = s.id
+    where 1=1 and t.status = '0'
     <if test="id != null">
-      and id = #{id,jdbcType=BIGINT}
+      and t.id = #{id,jdbcType=BIGINT}
     </if>
-    order by createTime desc
+    order by t.createTime desc
     limit 0,1
   </select>
 
   <select id="queryOldShowList" resultType="ShowView">
     select
-      id, showSeason, image1
-    from t_show
-    order by createTime desc
+      t.id, s.name as showSeason, t.image1
+    from t_show t
+    left join t_season s on t.showSeason = s.id
+    where t.status = '0'
+    order by t.createTime desc
     limit 1,3
   </select>
+
+    <select id="query" resultMap="BaseResultMap" parameterType="com.dky.website.common.bean.Show">
+        select
+        <include refid="Base_Column_List" />
+        from t_show
+        <include refid="whereClause"></include>
+        <include refid="extendedOrderByClause"></include>
+    </select>
+
+    <sql id="whereClause">
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="showseason != null and ''!= showseason">and showseason = #{showseason}</if>
+        </where>
+    </sql>
+
+    <!-- 扩展的排序等语句（自定义）-->
+    <sql id="extendedOrderByClause">
+        <if test="null!=extendedParameter">
+            <if test="null!=extendedParameter.sidx and null!=extendedParameter.sord">ORDER BY ${extendedParameter.sidx}  ${extendedParameter.sord}   </if>
+        </if>
+    </sql>
 </mapper>

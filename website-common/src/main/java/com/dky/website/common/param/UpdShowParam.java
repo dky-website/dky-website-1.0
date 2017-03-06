@@ -1,10 +1,13 @@
-package com.dky.website.common.bean;
+package com.dky.website.common.param;
 
 import com.dky.website.common.base.BaseParameter;
 
-import java.util.Date;
 
-public class Show extends BaseParameter{
+/**
+ * Created by wonpera on 2017/3/6.
+ */
+public class UpdShowParam extends BaseParameter {
+
     private Long id;
 
     private String showseason;
@@ -19,12 +22,6 @@ public class Show extends BaseParameter{
 
     private String image5;
 
-    private Date createtime;
-
-    private Date updatetime;
-
-    private Integer status;
-
     public Long getId() {
         return id;
     }
@@ -38,7 +35,7 @@ public class Show extends BaseParameter{
     }
 
     public void setShowseason(String showseason) {
-        this.showseason = showseason == null ? null : showseason.trim();
+        this.showseason = showseason;
     }
 
     public String getImage1() {
@@ -46,7 +43,7 @@ public class Show extends BaseParameter{
     }
 
     public void setImage1(String image1) {
-        this.image1 = image1 == null ? null : image1.trim();
+        this.image1 = image1;
     }
 
     public String getImage2() {
@@ -54,7 +51,7 @@ public class Show extends BaseParameter{
     }
 
     public void setImage2(String image2) {
-        this.image2 = image2 == null ? null : image2.trim();
+        this.image2 = image2;
     }
 
     public String getImage3() {
@@ -62,7 +59,7 @@ public class Show extends BaseParameter{
     }
 
     public void setImage3(String image3) {
-        this.image3 = image3 == null ? null : image3.trim();
+        this.image3 = image3;
     }
 
     public String getImage4() {
@@ -70,7 +67,7 @@ public class Show extends BaseParameter{
     }
 
     public void setImage4(String image4) {
-        this.image4 = image4 == null ? null : image4.trim();
+        this.image4 = image4;
     }
 
     public String getImage5() {
@@ -78,30 +75,6 @@ public class Show extends BaseParameter{
     }
 
     public void setImage5(String image5) {
-        this.image5 = image5 == null ? null : image5.trim();
-    }
-
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+        this.image5 = image5;
     }
 }

@@ -174,8 +174,9 @@ public class ProductServiceImpl implements ProductService {
                 productView.setImgList(imgList);
             }
             productView.setTypeName(menu.getMenuEnName());
-            Season season = seasonService.getSeanByType(Integer.parseInt(productView.getSeason()));
-            if(season != null){
+            ReturnT seasonR = seasonService.querySeasonById(Long.parseLong(param.getSeason()));
+            if(seasonR != null && seasonR.getData()!=null){
+                Season season = (Season) seasonR.getData();
                 productView.setSeasonName(season.getName());
             }
             viewList.add(productView);

@@ -100,7 +100,7 @@ public class SeasonServiceImpl implements SeasonService{
         Season season = new Season();
         season.setStatus(StatusEnum.ENABLE.getCode());
         if(StringUtils.isNoneEmpty(param.getSeason())){
-            season.setType(Integer.parseInt(param.getType()));
+            season.setId(Long.parseLong(param.getType()));
         }
         List<Season> list = mapper.query(season);
         if(list == null || list.size() == 0){
