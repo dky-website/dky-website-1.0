@@ -1,6 +1,9 @@
 package com.dky.website.business.biz;
 
+import com.dky.website.business.plugin.PageHelper;
+import com.dky.website.common.bean.Suggest;
 import com.dky.website.common.param.AddFrontSuggestParam;
+import com.dky.website.common.param.QuerySuggestParam;
 import com.dky.website.common.response.ReturnT;
 
 /**
@@ -9,4 +12,6 @@ import com.dky.website.common.response.ReturnT;
 public interface SuggestService {
 
     ReturnT addSuggest(AddFrontSuggestParam param);
+
+    PageHelper.Page<Suggest> querySuggestPage(QuerySuggestParam param);
 }

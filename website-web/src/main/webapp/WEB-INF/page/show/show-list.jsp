@@ -390,6 +390,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -406,6 +407,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -422,6 +424,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -438,6 +441,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -454,6 +458,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -494,6 +499,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -510,6 +516,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -526,6 +533,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -542,6 +550,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -558,6 +567,7 @@
                                 <div class="progress-num">上传进度：<b>0%</b></div>
                                 <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
