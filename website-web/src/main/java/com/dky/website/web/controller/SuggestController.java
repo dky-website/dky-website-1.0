@@ -4,8 +4,10 @@ import com.dky.website.business.biz.SuggestService;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.Suggest;
 import com.dky.website.common.param.QuerySuggestParam;
+import com.dky.website.common.response.ReturnT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,5 +29,12 @@ public class SuggestController {
     @RequestMapping("page")
     public PageHelper.Page<Suggest> querySuggestPage(QuerySuggestParam param){
         return suggestService.querySuggestPage(param);
+    }
+
+
+
+    @RequestMapping("getSuggestById")
+    public ReturnT getSuggestById(@RequestParam(value = "id")Long id){
+        return suggestService.getSuggestById(id);
     }
 }

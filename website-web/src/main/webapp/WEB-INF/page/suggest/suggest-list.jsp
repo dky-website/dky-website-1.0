@@ -56,6 +56,25 @@
 
 
 
+<div class="modal inmodal" id="info-modal" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content animated rubberBand">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">关闭</span></button>
+                <h2 class="modal-title">详细信息</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="info-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Page-Level Scripts -->
 <script>
     var seasons = {};//
@@ -111,7 +130,7 @@
                     width: 200,
                     sortable: false,
                     formatter: function(cellvalue, options, rowObject){
-                        var html = '<button class="btn btn-info" name="edit-btn" onClick="goUpdate('+cellvalue+')" data-key="'+cellvalue+'" type="button"><i class="fa fa-paste"></i> 详细</button>&nbsp;&nbsp;';
+                        var html = '<button class="btn btn-info" name="edit-btn" onClick="goDetail('+cellvalue+')" data-key="'+cellvalue+'" type="button"><i class="fa fa-paste"></i> 详细</button>&nbsp;&nbsp;';
                         return html;
                     }
                 }
@@ -147,6 +166,14 @@
 
     });
 
+    function goDetail(id){
+        var data;
+        postAsync('${ctx}/suggest/getSuggestById',{'id':id},function(res){data=res.data;});
+        var html = template('detail-template',{data:data});
+        $("#info-content").html(html);
+        $("#info-modal").modal({backdrop: 'static', keyboard: false});
+    }
+
    
 
 
@@ -168,6 +195,43 @@
 
 </script>
 </body>
+
+<script id="detail-template" type="text/html">
+    <div class="ibox border-bottom">
+        <div class="ibox-title">
+            <h5><b>建议详细信息</b> <span class="text-navy"></span></h5>
+        </div>
+        <div class="ibox-content" id="cloud-unit">
+            <table class="table table-stripped footable footable-loaded no-paging" style="word-break:break-all; word-wrap:break-all;">
+                <thead>
+                <tr>
+                    <th class="footable-sortable" style="cursor: default;width:140px;">属性名称</th>
+                    <th class="footable-sortable" style="cursor: default;">属性值</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="footable-even" style="display: table-row;">
+                    <td><span class="footable-toggle"></span>id</td>
+                    <td>{{data.id}}</td>
+                </tr>
+                <tr class="footable-odd" style="display: table-row;">
+                    <td><span class="footable-toggle"></span>名称</td>
+                    <td>{{data.name}}</td>
+                </tr>
+                <tr class="footable-even" style="display: table-row;">
+                    <td><span class="footable-toggle"></span>标题</td>
+                    <td>{{data.title}}</td>
+                </tr>
+                <tr class="footable-even" style="display: table-row;">
+                    <td><span class="footable-toggle"></span>内容</td>
+                    <td>{{data.content}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
 
 
 

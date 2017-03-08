@@ -14,4 +14,6 @@ public interface SuggestService {
     ReturnT addSuggest(AddFrontSuggestParam param);
 
     PageHelper.Page<Suggest> querySuggestPage(QuerySuggestParam param);
+
+    ReturnT<Suggest> getSuggestById(Long id);
 }

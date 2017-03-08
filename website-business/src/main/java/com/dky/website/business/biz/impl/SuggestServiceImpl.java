@@ -44,4 +44,13 @@ public class SuggestServiceImpl implements SuggestService {
         suggestMapper.query(suggest);
         return PageHelper.endPage();
     }
+
+    @Override
+    public ReturnT<Suggest> getSuggestById(Long id) {
+        Suggest suggest = suggestMapper.selectByPrimaryKey(id);
+        if(suggest == null){
+            return new ReturnT<>().failureData("未找到对应的建议数据");
+        }
+        return new ReturnT<>().sucessData(suggest);
+    }
 }
