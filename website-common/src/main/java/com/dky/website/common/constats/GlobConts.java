@@ -70,4 +70,5 @@ public class GlobConts {
     public static final String RESPONSE_ENCODING = "response.encoding";
 
     public static final String CALLBACK = "callback";
+    public static final String JSON_CALLBACK = "jsoncallback";
 }

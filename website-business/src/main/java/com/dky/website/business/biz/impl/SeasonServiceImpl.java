@@ -1,5 +1,6 @@
 package com.dky.website.business.biz.impl;
 
+import com.dky.website.business.biz.FrontMenuService;
 import com.dky.website.business.biz.SeasonService;
 import com.dky.website.business.mapper.SeasonMapper;
 import com.dky.website.business.plugin.PageHelper;
@@ -11,6 +12,7 @@ import com.dky.website.common.param.AddSeasonParam;
 import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.QuerySeasonParam;
 import com.dky.website.common.param.UpdateSeasonParam;
+import com.dky.website.common.response.ProductTypeView;
 import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.response.SeasonView;
 import org.apache.commons.lang3.StringUtils;
@@ -97,6 +99,9 @@ public class SeasonServiceImpl implements SeasonService{
         return list.get(0);
     }
 
+    @Autowired
+    private FrontMenuService frontMenuService;
+
     @Override
     public ReturnT<List<SeasonView>> querySeasonView(QueryProductParam param) {
         Long seasonId = null;
@@ -104,7 +109,16 @@ public class SeasonServiceImpl implements SeasonService{
             seasonId =  Long.parseLong(param.getSeason());
         }
         QuerySeasonWithProduct sp = new QuerySeasonWithProduct();
-        sp.setType(param.getType());
+        if(StringUtils.isEmpty(param.getType())){//如果type为空默认查询第一个分类的所有季节
+            ReturnT<List<ProductTypeView>> productTypeR = frontMenuService.getProductTypeView(param);
+            if(productTypeR.isSuccess()){
+                List<ProductTypeView> productTypeViews = productTypeR.getData();
+                ProductTypeView typeView = productTypeViews.get(0);
+                sp.setType(typeView.getId());
+            }
+        }else {
+            sp.setType(param.getType());
+        }
         sp.setSeason(seasonId);
         List<Season> list = mapper.queryWithProduct(sp);
         if(list == null || list.size() == 0){

@@ -44,7 +44,14 @@ public class DykResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         HttpServletRequest request = ((ServletServerHttpRequest)serverHttpRequest).getServletRequest();
-        String callback = request.getParameter(GlobConts.CALLBACK);
+        String jsoncallback = request.getParameter(GlobConts.JSON_CALLBACK);//优先判断jsoncallback
+        if(StringUtils.isNoneEmpty(jsoncallback)){
+            String result = jsoncallback.concat("(").concat(gson.toJson(body)).concat(")");
+            HttpServletResponse response = ((ServletServerHttpResponse)serverHttpResponse).getServletResponse();
+            writeResponse(response,result);
+            return null;
+        }
+        String callback = request.getParameter(GlobConts.CALLBACK);//在判断callback
         if(StringUtils.isNoneBlank(callback)){
             String result = callback.concat("(").concat(gson.toJson(body)).concat(")");
             HttpServletResponse response = ((ServletServerHttpResponse)serverHttpResponse).getServletResponse();
