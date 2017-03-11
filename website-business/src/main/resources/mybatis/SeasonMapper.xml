@@ -127,4 +127,13 @@
             <if test="null!=extendedParameter.sidx and null!=extendedParameter.sord">ORDER BY ${extendedParameter.sidx}  ${extendedParameter.sord}   </if>
         </if>
     </sql>
+
+
+    <select id="queryWithProduct" resultType="com.dky.website.common.bean.Season" parameterType="com.dky.website.common.bean.QuerySeasonWithProduct">
+        SELECT t.* FROM t_season t
+        INNER JOIN t_product p ON t.id = p.season
+        WHERE t.type = 1
+        <if test="type != null and ''!= type">and p.type=#{type}</if>
+        <if test="season != null and ''!= season">and t.id=#{season}</if>
+    </select>
 </mapper>

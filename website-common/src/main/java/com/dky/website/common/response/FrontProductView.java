@@ -3,8 +3,6 @@ package com.dky.website.common.response;
 import com.dky.website.common.base.BaseParameter;
 import com.dky.website.common.bean.Product;
 import com.dky.website.common.bean.ProductImg;
-import com.dky.website.common.enums.SeasonEnum;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 

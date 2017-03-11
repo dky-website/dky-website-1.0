@@ -3,7 +3,9 @@ package com.dky.website.business.biz.impl;
 import com.dky.website.business.biz.SeasonService;
 import com.dky.website.business.mapper.SeasonMapper;
 import com.dky.website.business.plugin.PageHelper;
+import com.dky.website.common.bean.QuerySeasonWithProduct;
 import com.dky.website.common.bean.Season;
+import com.dky.website.common.enums.SeasonTypeEnum;
 import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddSeasonParam;
 import com.dky.website.common.param.QueryProductParam;
@@ -97,14 +99,16 @@ public class SeasonServiceImpl implements SeasonService{
 
     @Override
     public ReturnT<List<SeasonView>> querySeasonView(QueryProductParam param) {
-        Season season = new Season();
-        season.setStatus(StatusEnum.ENABLE.getCode());
+        Long seasonId = null;
         if(StringUtils.isNoneEmpty(param.getSeason())){
-            season.setId(Long.parseLong(param.getType()));
+            seasonId =  Long.parseLong(param.getSeason());
         }
-        List<Season> list = mapper.query(season);
+        QuerySeasonWithProduct sp = new QuerySeasonWithProduct();
+        sp.setType(param.getType());
+        sp.setSeason(seasonId);
+        List<Season> list = mapper.queryWithProduct(sp);
         if(list == null || list.size() == 0){
-            return new ReturnT<>().sucessData("没有符合条件的数据");
+            return new ReturnT<>().failureData("没有符合条件的数据");
         }
         List<SeasonView> viewList = new SeasonView().toViewList(list);
         return new ReturnT<>().sucessData(viewList);

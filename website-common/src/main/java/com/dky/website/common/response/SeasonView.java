@@ -11,17 +11,9 @@ import java.util.List;
  */
 public class SeasonView extends BaseParameter {
 
-    private String type;
+    private String id;
 
     private String name;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getName() {
         return name;
@@ -31,12 +23,20 @@ public class SeasonView extends BaseParameter {
         this.name = name;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public SeasonView toView(Season season){
         if(season == null){
             return null;
         }
         SeasonView seasonView = new SeasonView();
-        seasonView.setType(String.valueOf(season.getType()));
+        seasonView.setId(String.valueOf(season.getId()));
         seasonView.setName(season.getName());
         return seasonView;
     }

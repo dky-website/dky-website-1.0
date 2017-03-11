@@ -1,5 +1,6 @@
 package com.dky.website.business.mapper;
 
+import com.dky.website.common.bean.QuerySeasonWithProduct;
 import com.dky.website.common.bean.Season;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface SeasonMapper {
     int updateByPrimaryKey(Season record);
 
     List<Season> query(Season record);
+
+    List<Season> queryWithProduct(QuerySeasonWithProduct param);
 
 }
