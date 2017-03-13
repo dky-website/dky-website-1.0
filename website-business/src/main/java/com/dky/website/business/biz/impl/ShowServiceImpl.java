@@ -33,7 +33,7 @@ public class ShowServiceImpl implements ShowService {
         ReturnT<ShowPageView> result = new ReturnT<>();
         ShowPageView resultView = new ShowPageView();
         resultView.setMiddleShow(showMapper.getShowView(param.getId()));
-        resultView.setOldShowList(showMapper.queryOldShowList());
+        resultView.setOldShowList(showMapper.queryOldShowList(param.getId()));
         result.setData(resultView);
         return result.successDefault();
     }
