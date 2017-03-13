@@ -20,6 +20,10 @@ public class AddShowParam extends BaseParameter {
 
     private String image5;
 
+    private String image6;
+
+    private String image7;
+
     public String getShowseason() {
         return showseason;
     }
@@ -66,5 +70,21 @@ public class AddShowParam extends BaseParameter {
 
     public void setImage5(String image5) {
         this.image5 = image5;
+    }
+
+    public String getImage6() {
+        return image6;
+    }
+
+    public void setImage6(String image6) {
+        this.image6 = image6;
+    }
+
+    public String getImage7() {
+        return image7;
+    }
+
+    public void setImage7(String image7) {
+        this.image7 = image7;
     }
 }

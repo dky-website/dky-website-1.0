@@ -128,7 +128,7 @@
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['id','季节', '图片1','图片2','图片3','图片4','图片5','创建时间', '操作'],
+            colNames: ['id','季节', '图片1','图片2','图片3','图片4','图片5','图片6','图片7','创建时间', '操作'],
             colModel: [
                 {
                     name: 'id',
@@ -139,7 +139,7 @@
                 {
                     name: 'showseason',
                     index: 'showseason',
-                    width: 90,
+                    width: 150,
                     formatter : function(cellvalue, options, rowObject){
                        return seasons[cellvalue];
                     }
@@ -185,9 +185,25 @@
                     }
                 },
                 {
+                    name:'image6',
+                    index:'image6',
+                    width : 200,
+                    formatter : function(cellvalue, options, rowObject){
+                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
+                    }
+                },
+                {
+                    name:'image7',
+                    index:'image7',
+                    width : 200,
+                    formatter : function(cellvalue, options, rowObject){
+                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
+                    }
+                },
+                {
                     name: 'createtime',
                     index: 'createtime',
-                    width: 200
+                    width: 230
                 },
                 {
                     name: 'id',
@@ -227,6 +243,8 @@
             initImageUpload('add_path3','uploadBtnHolder3','img3');
             initImageUpload('add_path4','uploadBtnHolder4','img4');
             initImageUpload('add_path5','uploadBtnHolder5','img5');
+            initImageUpload('add_path6','uploadBtnHolder6','img6');
+            initImageUpload('add_path7','uploadBtnHolder7','img7');
             $("#add-modal").modal({backdrop: 'static', keyboard: false});
         });
 
@@ -260,6 +278,8 @@
             initImageUpload('upd_path3','updBtn3','img3');
             initImageUpload('upd_path4','updBtn4','img4');
             initImageUpload('upd_path5','updBtn5','img5');
+            initImageUpload('upd_path6','updBtn6','img6');
+            initImageUpload('upd_path7','updBtn7','img7');
         $("#upd-modal").modal({backdrop: 'static', keyboard: false});
     }
 
@@ -462,6 +482,40 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">图片6:</label>
+                <div class="col-md-10">
+                    <div class="img6">
+                        <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
+                        <div class="logoupload">
+                            <input type="hidden" name="image6" id="add_path6" class="form-control"   />
+                            <div class="btnbox"><a id="uploadBtnHolder6" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                            <div class="progress-box" style="display:none;">
+                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">图片7:</label>
+                <div class="col-md-10">
+                    <div class="img7">
+                        <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
+                        <div class="logoupload">
+                            <input type="hidden" name="image7" id="add_path7" class="form-control"   />
+                            <div class="btnbox"><a id="uploadBtnHolder7" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                            <div class="progress-box" style="display:none;">
+                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </script>
@@ -562,6 +616,40 @@
                         <div class="logoupload">
                             <input type="hidden" name="image5" value="{{data.image5}}" id="upd_path5" class="form-control"   />
                             <div class="btnbox"><a id="updBtn5" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                            <div class="progress-box" style="display:none;">
+                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">图片6:</label>
+                <div class="col-md-10">
+                    <div class="img6">
+                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image6}}" width="100px" alt="" height="100px"/></div></div>
+                        <div class="logoupload">
+                            <input type="hidden" name="image6" value="{{data.image6}}" id="upd_path6" class="form-control"   />
+                            <div class="btnbox"><a id="updBtn6" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                            <div class="progress-box" style="display:none;">
+                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">图片7:</label>
+                <div class="col-md-10">
+                    <div class="img7">
+                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image7}}" width="100px" alt="" height="100px"/></div></div>
+                        <div class="logoupload">
+                            <input type="hidden" name="image7" value="{{data.image7}}" id="upd_path7" class="form-control"   />
+                            <div class="btnbox"><a id="updBtn7" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
                                 <div class="progress-num">上传进度：<b>0%</b></div>
