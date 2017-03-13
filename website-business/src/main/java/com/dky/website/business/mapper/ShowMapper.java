@@ -22,7 +22,7 @@ public interface ShowMapper {
 
     ShowView getShowView(@Param("id")Long id);
 
-    List<ShowView> queryOldShowList();
+    List<ShowView> queryOldShowList(@Param("id")Long id);
 
     List<Show> query(Show show);
 }
