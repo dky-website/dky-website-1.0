@@ -47,9 +47,12 @@ public class ShowServiceImpl implements ShowService {
         while (index < oldShowList.size() && oldShowList.size() > 0){
             for (int i=index+1;i<oldShowList.size();i++) {
                 if (oldShowList.get(i).getShowSeason().equals(oldShowList.get(index).getShowSeason())){
-                    oldShowList.remove(i);
+                    oldShowList.set(i,null);
                 }
             }
+            List<ShowView> al = new ArrayList<>(1);
+            al.add(0,null);
+            oldShowList.removeAll(al);
             index ++;
         }
 
