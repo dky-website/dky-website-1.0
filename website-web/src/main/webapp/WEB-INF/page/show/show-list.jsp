@@ -121,7 +121,7 @@
         });
         $("#table_list").jqGrid({
             datatype: "json",
-            url: '${ctx}/show/page',
+            url: '${ctx}/show/page?pageSize=5',
             mtype : 'POST',
             height: 300,
             autowidth: true,
@@ -144,8 +144,13 @@
                     width : 1000,
                     formatter : function(cellvalue, options, rowObject){
                         var html = '';
+                        var i = 1;
                         $.each(cellvalue,function(){
                             html += '<span ><img src="${ctx}/'+this.image+'"   height="25%"/></span>';
+                            if(i%3 ==0){
+                                html += '<br>';
+                            }
+                            i++;
                         });
                         return html;
                     }
