@@ -144,14 +144,11 @@
                     width : 1000,
                     formatter : function(cellvalue, options, rowObject){
                         var html = '';
-                        var i = 1;
                         $.each(cellvalue,function(){
-                            html += '<span ><img src="${ctx}/'+this.image+'"   height="25%"/></span>';
-                            if(i%3 ==0){
-                                html += '<br>';
-                            }
-                            i++;
+                            html += '<span ><img src="${ctx}/'+this.image+'" width="100px" height="100px"  /></span>';
+                           
                         });
+                        html += '';
                         return html;
                     }
                 },
@@ -496,7 +493,7 @@
             </div>
             {{each data.showDataList as value i}}
                 <div class="form-group">
-                <label class="control-label col-md-2">图片1:</label>
+                <label class="control-label col-md-2">图片{{i}}:</label>
                 <div class="col-md-10">
                     <div class="img{{i}}">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/{{value.image}}" width="100px" alt="" height="100px"/></div></div>
@@ -514,126 +511,6 @@
                 </div>
             </div>
             {{/each}}
-            <!-- <div class="form-group">
-                <label class="control-label col-md-2">图片1:</label>
-                <div class="col-md-10">
-                    <div class="img1">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image1}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image1" value="{{data.image1}}" id="upd_path1" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn1" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="form-group">
-                <label class="control-label col-md-2">图片2:</label>
-                <div class="col-md-10">
-                    <div class="img2">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image2}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image2" value="{{data.image2}}" id="upd_path2" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn2" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片3:</label>
-                <div class="col-md-10">
-                    <div class="img3">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image3}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image3" value="{{data.image3}}" id="upd_path3" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn3" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片4:</label>
-                <div class="col-md-10">
-                    <div class="img4">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image4}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image4" value="{{data.image4}}" id="upd_path4" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn4" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片5:</label>
-                <div class="col-md-10">
-                    <div class="img5">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image5}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image5" value="{{data.image5}}" id="upd_path5" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn5" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片6:</label>
-                <div class="col-md-10">
-                    <div class="img6">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image6}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image6" value="{{data.image6}}" id="upd_path6" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn6" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-2">图片7:</label>
-                <div class="col-md-10">
-                    <div class="img7">
-                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{data.image7}}" width="100px" alt="" height="100px"/></div></div>
-                        <div class="logoupload">
-                            <input type="hidden" name="image7" value="{{data.image7}}" id="upd_path7" class="form-control"   />
-                            <div class="btnbox"><a id="updBtn7" class="uploadbtn" href="javascript:;">上传替换</a></div>
-                            <div style="clear:both;height:0;overflow:hidden;"></div>
-                            <div class="progress-box" style="display:none;">
-                                <div class="progress-num">上传进度：<b>0%</b></div>
-                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 </script>
 

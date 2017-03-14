@@ -148,7 +148,7 @@
                     index:'photo',
                     width : 200,
                     formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
+                        return '<span ><img src="${ctx}/'+cellvalue+'" width="100px" height="100px"  /></span>';
                     }
                 },
                 {
