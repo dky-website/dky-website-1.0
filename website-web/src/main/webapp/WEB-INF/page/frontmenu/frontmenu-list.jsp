@@ -656,7 +656,7 @@
             flash_url : "${ctx}/assets/js/plugins/swfupload/swfupload.swf",
             flash9_url : "${ctx}/assets/js/plugins/swfupload/swfupload_fp9.swf",
             upload_url: "${ctx}/upload/file",// 接受上传的地址
-            file_size_limit : "5MB",// 文件大小限制
+            file_size_limit : "15MB",// 文件大小限制
             file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
             file_types_description : "图片",// 说明，自己定义
             file_upload_limit : 100,
