@@ -35,7 +35,7 @@ public class SeasonServiceImpl implements SeasonService{
 
     @Override
     public PageHelper.Page<Season> querySeasonPage(QuerySeasonParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         Season season = new Season();
         BeanUtils.copyProperties(param, season);
         season.setStatus(StatusEnum.ENABLE.getCode());

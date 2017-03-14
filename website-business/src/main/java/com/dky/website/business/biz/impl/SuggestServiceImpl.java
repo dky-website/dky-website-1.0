@@ -38,7 +38,7 @@ public class SuggestServiceImpl implements SuggestService {
 
     @Override
     public PageHelper.Page<Suggest> querySuggestPage(QuerySuggestParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         Suggest suggest = new Suggest();
         BeanUtils.copyProperties(param,suggest);
         suggestMapper.query(suggest);

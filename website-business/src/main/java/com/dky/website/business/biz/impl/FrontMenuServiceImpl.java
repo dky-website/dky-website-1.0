@@ -33,7 +33,7 @@ public class FrontMenuServiceImpl implements FrontMenuService {
 
     @Override
     public PageHelper.Page<FrontMenu> queryFMenuPage(QueryFrontMenuParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         FrontMenu frontMenu = new FrontMenu();
         BeanUtils.copyProperties(param,frontMenu);
         frontMenu.setStatus(StatusEnum.ENABLE.getCode());

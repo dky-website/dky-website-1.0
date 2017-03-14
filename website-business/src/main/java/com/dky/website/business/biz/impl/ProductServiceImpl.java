@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageHelper.Page<Product> queryProductPage(QueryProductParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         Product product = new Product();
         BeanUtils.copyProperties(param,product);
         Map<String,String> extendedParameter = Maps.newHashMap();

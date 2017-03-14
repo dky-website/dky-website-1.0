@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageHelper.Page<User> queryUserPage(QueryUserParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         User user = new User();
         BeanUtils.copyProperties(param,user);
         userMapper.query(user);

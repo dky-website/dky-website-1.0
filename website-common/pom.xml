@@ -74,6 +74,12 @@
         </dependency>
         <!-- JSON end -->
 
+
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+        </dependency>
+
         <!-- GENERAL UTILS begin -->
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -29,7 +29,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public PageHelper.Page<Banner> queryBannerPage(QueryBannerParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         Banner banner = new Banner();
         BeanUtils.copyProperties(param,banner);
         banner.setStatus(StatusEnum.ENABLE.getCode());

@@ -28,7 +28,7 @@ public class ProductImgServiceImpl implements ProductImgService {
 
     @Override
     public PageHelper.Page<ProductImg> queryProductImgPage(QueryProductImgParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         ProductImg productImg = new ProductImg();
         BeanUtils.copyProperties(param, productImg);
         productImg.setStatus(StatusEnum.ENABLE.getCode());

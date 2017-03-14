@@ -10,9 +10,8 @@ public class WebPageParameter extends SessionParameter {
 
     private Integer requestOffset;
     private Integer requestCount;
-    private Integer pageNo = 1;
     private Integer pageSize = GlobConts.DEFUALT_PAGE_SIZE;
-
+    private Integer page=1;
 
     public Integer getRequestOffset() {
         return requestOffset;
@@ -30,19 +29,19 @@ public class WebPageParameter extends SessionParameter {
         this.requestCount = requestCount;
     }
 
-    public Integer getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
-    }
-
     public Integer getPageSize() {
         return pageSize;
     }
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 }

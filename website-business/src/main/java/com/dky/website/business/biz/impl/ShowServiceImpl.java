@@ -47,7 +47,7 @@ public class ShowServiceImpl implements ShowService {
 
     @Override
     public PageHelper.Page<Show> queryShowPage(QueryFrontShowParam param) {
-        PageHelper.startPage(param.getPageNo(),param.getPageSize());
+        PageHelper.startPage(param.getPage(),param.getPageSize());
         Show show = new Show();
         BeanUtils.copyProperties(param,show);
         show.setStatus(StatusEnum.ENABLE.getCode());
