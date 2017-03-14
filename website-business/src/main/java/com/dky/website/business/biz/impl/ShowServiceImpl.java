@@ -1,14 +1,13 @@
 package com.dky.website.business.biz.impl;
 
 import com.dky.website.business.biz.ShowService;
-import com.dky.website.business.biz.SuggestService;
 import com.dky.website.business.mapper.ShowMapper;
-import com.dky.website.business.mapper.SuggestMapper;
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.Show;
-import com.dky.website.common.bean.Suggest;
 import com.dky.website.common.enums.StatusEnum;
-import com.dky.website.common.param.*;
+import com.dky.website.common.param.AddShowParam;
+import com.dky.website.common.param.QueryFrontShowParam;
+import com.dky.website.common.param.UpdShowParam;
 import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.response.ShowPageView;
 import com.dky.website.common.response.ShowView;
@@ -16,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,16 +32,26 @@ public class ShowServiceImpl implements ShowService {
     public ReturnT<ShowPageView> getShowImg(QueryFrontShowParam param) {
         ReturnT<ShowPageView> result = new ReturnT<>();
         ShowPageView resultView = new ShowPageView();
-        resultView.setMiddleShow(showMapper.getShowView(param.getId()));
-        resultView.setOldShowList(showMapper.queryOldShowList(param.getId()));
-        result.setData(resultView);
-        return result.successDefault();
-    }
+        List<ShowView> showViewList = showMapper.getShowViewList(param.getSeasonId());
+        resultView.setMiddleShowList(showViewList);
+        List<ShowView> oldShowList = new ArrayList<>();
+        if (showViewList.size() > 0){
+            oldShowList = showMapper.queryOldShowList(showViewList.get(0).getSeasonId());
+        }else {
+            oldShowList = showMapper.queryOldShowList(null);
+        }
+        int index = 0;
+        while (index < oldShowList.size() && oldShowList.size() > 0){
+            for (int i=index+1;i<oldShowList.size();i++) {
+                if (oldShowList.get(i).getShowSeason().equals(oldShowList.get(index).getShowSeason())){
+                    oldShowList.remove(i);
+                }
+            }
+            index ++;
+        }
 
-    @Override
-    public ReturnT<ShowView> getOldShowImg(QueryFrontShowParam param) {
-        ReturnT<ShowView> result = new ReturnT<>();
-        result.setData(showMapper.getShowView(param.getId()));
+        resultView.setOldShowList(oldShowList);
+        result.setData(resultView);
         return result.successDefault();
     }
 

@@ -7,16 +7,16 @@ import com.dky.website.common.base.WebPageParameter;
  */
 public class QueryFrontShowParam extends WebPageParameter {
 
-    private Long id;
+    private Long seasonId;
 
     private String showseason;
 
-    public Long getId() {
-        return id;
+    public Long getSeasonId() {
+        return seasonId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSeasonId(Long seasonId) {
+        this.seasonId = seasonId;
     }
 
     public String getShowseason() {

@@ -10,16 +10,16 @@ import java.util.List;
  */
 public class ShowPageView extends BaseParameter {
 
-    private ShowView middleShow;
+    private List<ShowView> middleShowList;
 
     private List<ShowView> oldShowList;
 
-    public ShowView getMiddleShow() {
-        return middleShow;
+    public List<ShowView> getMiddleShowList() {
+        return middleShowList;
     }
 
-    public void setMiddleShow(ShowView middleShow) {
-        this.middleShow = middleShow;
+    public void setMiddleShowList(List<ShowView> middleShowList) {
+        this.middleShowList = middleShowList;
     }
 
     public List<ShowView> getOldShowList() {

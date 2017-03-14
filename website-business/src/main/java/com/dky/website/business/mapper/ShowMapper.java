@@ -20,9 +20,9 @@ public interface ShowMapper {
 
     int updateByPrimaryKey(Show record);
 
-    ShowView getShowView(@Param("id")Long id);
+    List<ShowView> getShowViewList(@Param("seasonId")Long seasonId);
 
-    List<ShowView> queryOldShowList(@Param("id")Long id);
+    List<ShowView> queryOldShowList(@Param("seasonId")Long seasonId);
 
     List<Show> query(Show show);
 }
