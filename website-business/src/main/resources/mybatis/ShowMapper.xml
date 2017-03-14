@@ -109,7 +109,7 @@
     t.id, s.name as showSeason, t.image, s.id as seasonId
     from t_show t,
     (SELECT * FROM t_season
-    WHERE 1=1 <if test="seasonId != null"> and id = #{seasonId} </if> ORDER BY createTime DESC LIMIT 1 ) s
+    WHERE type = 2 <if test="seasonId != null"> and id = #{seasonId} </if> ORDER BY createTime DESC LIMIT 1 ) s
     where t.status = '0' and t.showSeason = s.id
     order by t.createTime desc
   </select>
@@ -119,7 +119,7 @@
     t.id, s.name as showSeason, t.image, s.id as seasonId
     from t_show t
     left join t_season s on t.showSeason = s.id
-    where t.status = '0'
+    where t.status = '0'and s.type = 2
     <if test="seasonId != null">
       and s.id != #{seasonId}
     </if>
