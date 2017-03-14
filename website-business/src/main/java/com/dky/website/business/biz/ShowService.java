@@ -7,6 +7,7 @@ import com.dky.website.common.param.QueryFrontShowParam;
 import com.dky.website.common.param.UpdShowParam;
 import com.dky.website.common.response.ReturnT;
 import com.dky.website.common.response.ShowPageView;
+import com.dky.website.common.response.ShowVo;
 
 
 /**
@@ -16,7 +17,7 @@ public interface ShowService {
 
     ReturnT<ShowPageView> getShowImg(QueryFrontShowParam param);
 
-    PageHelper.Page<Show> queryShowPage(QueryFrontShowParam param);
+    PageHelper.Page<ShowVo> queryShowPage(QueryFrontShowParam param);
 
     ReturnT addShow(AddShowParam param);
 
@@ -25,4 +26,6 @@ public interface ShowService {
     ReturnT deleteShow(Long id);
 
     ReturnT<Show> getShowById(Long id);
+
+    ReturnT<ShowVo> getShowVoBySeansonId(String showseason);
 }

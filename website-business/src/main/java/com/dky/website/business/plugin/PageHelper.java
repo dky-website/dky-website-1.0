@@ -197,6 +197,9 @@ public class PageHelper implements Interceptor {
         private int pages;
         private List<E> result;
 
+        public Page() {
+        }
+
         public Page(int pageNum, int pageSize) {
             this.pageNum = pageNum;
             this.pageSize = pageSize;

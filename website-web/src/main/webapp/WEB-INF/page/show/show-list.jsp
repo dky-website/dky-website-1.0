@@ -128,14 +128,8 @@
             shrinkToFit: true,
             rowNum: 14,
             rowList: [10, 20, 30],
-            colNames: ['id','季节', '图片1','图片2','图片3','图片4','图片5','图片6','图片7','创建时间', '操作'],
+            colNames: ['季节', '图片', '操作'],
             colModel: [
-                {
-                    name: 'id',
-                    index: 'id',
-                    width: 60,
-                    sorttype: "int"
-                },
                 {
                     name: 'showseason',
                     index: 'showseason',
@@ -145,69 +139,20 @@
                     }
                 },
                 {
-                    name:'image1',
-                    index:'image1',
-                    width : 200,
+                    name:'showDataList',
+                    index:'showDataList',
+                    width : 1000,
                     formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
-                    }
-                },
-                 {
-                    name:'image2',
-                    index:'image2',
-                    width : 200,
-                    formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
-                    }
-                },
-                 {
-                    name:'image3',
-                    index:'image3',
-                    width : 200,
-                    formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
-                    }
-                },
-                 {
-                    name:'image4',
-                    index:'image4',
-                    width : 200,
-                    formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
-                    }
-                },
-                 {
-                    name:'image5',
-                    index:'image5',
-                    width : 200,
-                    formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
+                        var html = '';
+                        $.each(cellvalue,function(){
+                            html += '<span ><img src="${ctx}/'+this.image+'"   height="25%"/></span>';
+                        });
+                        return html;
                     }
                 },
                 {
-                    name:'image6',
-                    index:'image6',
-                    width : 200,
-                    formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
-                    }
-                },
-                {
-                    name:'image7',
-                    index:'image7',
-                    width : 200,
-                    formatter : function(cellvalue, options, rowObject){
-                        return '<span ><img src="${ctx}/'+cellvalue+'"   height="25%"/></span>';
-                    }
-                },
-                {
-                    name: 'createtime',
-                    index: 'createtime',
-                    width: 230
-                },
-                {
-                    name: 'id',
-                    index: 'id',
+                    name: 'showseason',
+                    index: 'showseason',
                     width: 150,
                     sortable: false,
                     formatter: function(cellvalue, options, rowObject){
@@ -271,15 +216,13 @@
 
     function goUpdate(id){
         var data;
-        postAsync('${ctx}/show/getShowById',{'id':id},function(result){data=result.data});
+        postAsync('${ctx}/show/getShowBySeasonid',{'showseason':id},function(result){data=result.data});
         $('#upd-data').html(template('upd-tmpl',{'data':data,'seasonList':seasonList}));
-        initImageUpload('upd_path1','updBtn1','img1');
-            initImageUpload('upd_path2','updBtn2','img2');
-            initImageUpload('upd_path3','updBtn3','img3');
-            initImageUpload('upd_path4','updBtn4','img4');
-            initImageUpload('upd_path5','updBtn5','img5');
-            initImageUpload('upd_path6','updBtn6','img6');
-            initImageUpload('upd_path7','updBtn7','img7');
+        var i = 0;
+        $.each(data.showDataList,function(){
+            initImageUpload('upd_path'+i,'updBtn'+i,'img'+i);
+            i++;
+        });
         $("#upd-modal").modal({backdrop: 'static', keyboard: false});
     }
 
@@ -288,6 +231,9 @@
         $('#updForm .form-control').each(function(){
             var name = $(this).attr('name');
             var value = $(this).val();
+             if(param[name]){
+                value = param[name]+','+value;
+            }
             param[name] = value;
         });
         if(!validate(param)){
@@ -328,6 +274,9 @@
         $('#addForm .form-control').each(function(){
             var name = $(this).attr('name');
             var value = $(this).val();
+            if(param[name]){
+                value = param[name]+','+value;
+            }
             param[name] = value;
         });
         if(!validate(param)){
@@ -403,7 +352,7 @@
                     <div class="img1">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image1" id="add_path1" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path1" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder1" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -420,7 +369,7 @@
                     <div class="img2">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image2" id="add_path2" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path2" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder2" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -437,7 +386,7 @@
                     <div class="img3">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image3" id="add_path3" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path3" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder3" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -454,7 +403,7 @@
                     <div class="img4">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image4" id="add_path4" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path4" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder4" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -471,7 +420,7 @@
                     <div class="img5">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image5" id="add_path5" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path5" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder5" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -488,7 +437,7 @@
                     <div class="img6">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image6" id="add_path6" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path6" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder6" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -505,7 +454,7 @@
                     <div class="img7">
                         <div class="logobox"><div class="resizebox"><img src="${ctx}/assets/img/upload.png" width="100px" alt="" height="100px"/></div></div>
                         <div class="logoupload">
-                            <input type="hidden" name="image7" id="add_path7" class="form-control"   />
+                            <input type="hidden" name="images" id="add_path7" class="form-control"   />
                             <div class="btnbox"><a id="uploadBtnHolder7" class="uploadbtn" href="javascript:;">上传替换</a></div>
                             <div style="clear:both;height:0;overflow:hidden;"></div>
                             <div class="progress-box" style="display:none;">
@@ -523,7 +472,7 @@
 
 <script id="upd-tmpl" type="text/html">
     <div class="row">
-    <input type="hidden" name="id" value="{{data.id}}" class="form-control">
+    <!-- <input type="hidden" name="id" value="{{data.id}}" class="form-control"> -->
         <div class="col-md-12">
             <div class="form-group">
                 <label class="control-label col-md-2">季节:</label>
@@ -540,7 +489,27 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            {{each data.showDataList as value i}}
+                <div class="form-group">
+                <label class="control-label col-md-2">图片1:</label>
+                <div class="col-md-10">
+                    <div class="img{{i}}">
+                        <div class="logobox"><div class="resizebox"><img src="${ctx}/{{value.image}}" width="100px" alt="" height="100px"/></div></div>
+                        <div class="logoupload">
+                            <input type="hidden" name="ids" value="{{value.id}}" class="form-control">
+                            <input type="hidden" name="images" value="{{value.image}}" id="upd_path{{i}}" class="form-control"   />
+                            <div class="btnbox"><a id="updBtn{{i}}" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                            <div style="clear:both;height:0;overflow:hidden;"></div>
+                            <div class="progress-box" style="display:none;">
+                                <div class="progress-num">上传进度：<b>0%</b></div>
+                                <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <!-- <div class="form-group">
                 <label class="control-label col-md-2">图片1:</label>
                 <div class="col-md-10">
                     <div class="img1">
@@ -556,8 +525,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
+            </div> -->
+            <!-- <div class="form-group">
                 <label class="control-label col-md-2">图片2:</label>
                 <div class="col-md-10">
                     <div class="img2">
@@ -659,7 +628,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </script>
 

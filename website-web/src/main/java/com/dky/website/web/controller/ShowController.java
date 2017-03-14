@@ -7,6 +7,7 @@ import com.dky.website.common.param.AddShowParam;
 import com.dky.website.common.param.QueryFrontShowParam;
 import com.dky.website.common.param.UpdShowParam;
 import com.dky.website.common.response.ReturnT;
+import com.dky.website.common.response.ShowVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +33,7 @@ public class ShowController {
 
 
     @RequestMapping("page")
-    public PageHelper.Page<Show> queryShowPage(QueryFrontShowParam param){
+    public PageHelper.Page<ShowVo> queryShowPage(QueryFrontShowParam param){
         return showService.queryShowPage(param);
     }
 
@@ -54,5 +55,10 @@ public class ShowController {
     @RequestMapping(value = "getShowById")
     public ReturnT getShowById(@RequestParam(value = "id")Long id){
         return showService.getShowById(id);
+    }
+
+    @RequestMapping(value = "getShowBySeasonid")
+    public ReturnT getShowVoBySeansonId(@RequestParam(value = "showseason")String showseason){
+        return showService.getShowVoBySeansonId(showseason);
     }
 }

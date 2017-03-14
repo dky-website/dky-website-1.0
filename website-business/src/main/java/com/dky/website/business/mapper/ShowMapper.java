@@ -1,6 +1,7 @@
 package com.dky.website.business.mapper;
 
 import com.dky.website.common.bean.Show;
+import com.dky.website.common.bean.ShowGroupSeason;
 import com.dky.website.common.response.ShowView;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,6 @@ public interface ShowMapper {
     List<ShowView> queryOldShowList(@Param("seasonId")Long seasonId);
 
     List<Show> query(Show show);
+
+    List<ShowGroupSeason> queryGroupBySeason(Show show);
 }

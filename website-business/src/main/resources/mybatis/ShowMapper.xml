@@ -134,6 +134,13 @@
     <include refid="extendedOrderByClause"></include>
   </select>
 
+  <select id="queryGroupBySeason" resultType="com.dky.website.common.bean.ShowGroupSeason" parameterType="com.dky.website.common.bean.Show">
+    SELECT GROUP_CONCAT(id) as groupConcatIds,GROUP_CONCAT(image) as getGroupConcatImages,showSeason as showseason
+    FROM t_show WHERE STATUS = 0
+    <if test="showseason != null and ''!= showseason">and showseason = #{showseason}</if>
+    GROUP BY showSeason
+  </select>
+
   <sql id="whereClause">
     <where>
       <if test="id != null">and id = #{id}</if>
