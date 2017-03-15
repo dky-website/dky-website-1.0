@@ -228,12 +228,18 @@
             }));
             initImageUpload('add_path');
             $('#add-contentShow').hide();
+            $('#add-imageShow').hide();
             $('#addForm select[name=classify]').change(function(){
                 var id = $(this).val();
                 if(id == '1'){
                     $('#add-contentShow').show();
-                }else{
+                    $('#add-imageShow').show();
+                }else if(id == '3'){
+                    $('#add-contentShow').show();
+                }
+                else{
                     $('#add-contentShow').hide();
+                    $('#add-imageShow').hide();
                 }
             });
             $('#menuEnNameShow').hide();
@@ -283,15 +289,24 @@
                 'fmenuList':fmenuList
             }));
         initImageUpload('upd_path');
-        if(data.classify != '1'){
+        if(data.classify == '2'){
             $('#upd-contentShow').hide();
+            $('#upd-imageShow').hide();
+        }else if(data.classify == '3'){
+            $('#upd-imageShow').hide();
         }
+        
         $('#updForm select[name=classify]').change(function(){
                 var id = $(this).val();
-                if(id == 'normal'){
+                if(id == '1'){
                     $('#upd-contentShow').show();
-                }else{
+                    $('#upd-imageShow').show();
+                }else if(id == '3'){
+                    $('#upd-contentShow').show();
+                }
+                else{
                     $('#upd-contentShow').hide();
+                    $('#upd-imageShow').hide();
                 }
             });
         if(data.type != '2'){
@@ -482,7 +497,8 @@
                             <textarea name="content" style="margin-top: 0px; margin-bottom: 0px; height: 100px;" class="form-control" placeholder="内容"></textarea>                
                      </div>          
                 </div>
-
+            </div>
+             <div id="add-imageShow">
                 <div class="form-group">
                     <label class="control-label col-md-2">图片:</label>
                     <div class="col-md-10">
@@ -590,7 +606,8 @@
                             <textarea name="content" style="margin-top: 0px; margin-bottom: 0px; height: 100px;" class="form-control" placeholder="内容">{{data.content}}</textarea>                
                      </div>          
                 </div>
-
+            </div>
+            <div id="upd-imageShow">
                 <div class="form-group">
                     <label class="control-label col-md-2">图片:</label>
                     <div class="col-md-10">
