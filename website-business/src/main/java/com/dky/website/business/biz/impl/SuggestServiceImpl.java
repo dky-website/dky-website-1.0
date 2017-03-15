@@ -41,6 +41,8 @@ public class SuggestServiceImpl implements SuggestService {
         PageHelper.startPage(param.getPage(),param.getPageSize());
         Suggest suggest = new Suggest();
         BeanUtils.copyProperties(param,suggest);
+        suggest.putExtendedParameterValue("sidx","id");
+        suggest.putExtendedParameterValue("sord","desc");
         suggestMapper.query(suggest);
         return PageHelper.endPage();
     }
