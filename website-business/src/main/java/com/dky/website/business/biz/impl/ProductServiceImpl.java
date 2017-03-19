@@ -113,8 +113,8 @@ public class ProductServiceImpl implements ProductService {
     public ReturnT<FrontProductView> getFrontProductView(QueryProductParam param) {
         Product product = new Product();
         BeanUtils.copyProperties(param, product);
-        param.putExtendedParameterValue("sidx", "type,season,ordered");
-        param.putExtendedParameterValue("sord","asc");
+        product.putExtendedParameterValue("sidx", "type,season,ordered");
+        product.putExtendedParameterValue("sord","asc");
         List<Product> productList = mapper.query(product);
         if(productList == null || productList.size() == 0){
             return new ReturnT<>().failureData("没有符合条件的记录");
