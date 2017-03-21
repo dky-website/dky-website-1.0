@@ -15,11 +15,22 @@ public class QueryProductImgParam extends WebPageParameter {
      */
     private Integer status;
 
+    private Long productId;
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }
