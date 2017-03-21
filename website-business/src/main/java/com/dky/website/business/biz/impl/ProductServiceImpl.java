@@ -65,6 +65,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         BeanUtils.copyProperties(param,product);
         product.setCreateTime(new Date());
+        product.setUpdateTime(new Date());
         product.setStatus(StatusEnum.ENABLE.getCode());
         mapper.insertSelective(product);
         return new ReturnT().successDefault();
@@ -84,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         product.setStatus(StatusEnum.DISABLED.getCode());
         product.setId(id);
+        product.setUpdateTime(new Date());
         mapper.updateByPrimaryKeySelective(product);
         return new ReturnT().successDefault();
     }
