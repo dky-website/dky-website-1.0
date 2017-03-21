@@ -132,7 +132,7 @@
     <select id="queryWithProduct" resultType="com.dky.website.common.bean.Season" parameterType="com.dky.website.common.bean.QuerySeasonWithProduct">
         SELECT t.* FROM t_season t
         INNER JOIN t_product p ON t.id = p.season
-        WHERE t.type = 1
+        WHERE t.type = 1 AND p.status = 0
         <if test="type != null and ''!= type">and p.type=#{type}</if>
         <if test="season != null and ''!= season">and t.id=#{season}</if>
     </select>
