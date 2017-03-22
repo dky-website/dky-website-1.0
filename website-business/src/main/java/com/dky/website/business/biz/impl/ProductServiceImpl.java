@@ -1,6 +1,7 @@
 package com.dky.website.business.biz.impl;
 
 import com.dky.website.business.biz.FrontMenuService;
+import com.dky.website.business.biz.ProductImgService;
 import com.dky.website.business.biz.ProductService;
 import com.dky.website.business.biz.SeasonService;
 import com.dky.website.business.mapper.ProductImgMapper;
@@ -12,6 +13,7 @@ import com.dky.website.common.bean.ProductImg;
 import com.dky.website.common.bean.Season;
 import com.dky.website.common.enums.StatusEnum;
 import com.dky.website.common.param.AddProductParam;
+import com.dky.website.common.param.QueryProductImgParam;
 import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.UpdProductParam;
 import com.dky.website.common.response.FrontProductView;
@@ -80,6 +82,10 @@ public class ProductServiceImpl implements ProductService {
         return new ReturnT().successDefault();
     }
 
+
+    @Autowired
+    private ProductImgService productImgService;
+
     @Override
     public ReturnT deleteProduct(Long id) {
         Product product = new Product();
@@ -87,6 +93,16 @@ public class ProductServiceImpl implements ProductService {
         product.setId(id);
         product.setUpdateTime(new Date());
         mapper.updateByPrimaryKeySelective(product);
+        //删除相关imglist的信息
+        QueryProductImgParam param = new QueryProductImgParam();
+        param.setProductId(id);
+        ReturnT<List<ProductImg>> returnT = productImgService.queryProductImgList(param);
+        List<ProductImg> productImgList = returnT.getData();
+        if(productImgList != null && productImgList.size() > 0){
+            for(ProductImg productImg : productImgList){
+                productImgService.deleteProductImg(productImg.getId());
+            }
+        }
         return new ReturnT().successDefault();
     }
 
