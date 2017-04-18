@@ -7,6 +7,7 @@ public enum BannerEnum {
 
     INDEX(1,"首页"),
     SHOW(2,"show"),
+    PRODUCT(3,"product"),
     ;
 
     private Integer code;

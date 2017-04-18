@@ -44,4 +44,15 @@ public class FrontBannerController {
         param.setBannerType(BannerEnum.SHOW.getCode());
         return bannerService.queryBannerView(param);
     }
+
+    /**
+     * 获取产品 banner图片
+     * @param param
+     * @return
+     */
+    @RequestMapping("productBannerList")
+    public ReturnT<List<BannerView>> queryFrontBannerProduct(QueryBannerParam param){
+        param.setBannerType(BannerEnum.PRODUCT.getCode());
+        return bannerService.queryBannerView(param);
+    }
 }
