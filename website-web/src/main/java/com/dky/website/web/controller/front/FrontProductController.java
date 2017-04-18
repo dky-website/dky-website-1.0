@@ -3,6 +3,8 @@ package com.dky.website.web.controller.front;
 import com.dky.website.business.biz.FrontMenuService;
 import com.dky.website.business.biz.ProductService;
 import com.dky.website.business.biz.SeasonService;
+import com.dky.website.business.plugin.PageHelper;
+import com.dky.website.common.bean.ProductImg;
 import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.response.ProductTypeView;
 import com.dky.website.common.response.ReturnT;
@@ -47,10 +49,23 @@ public class FrontProductController {
         return frontMenuService.getProductTypeView(param);
     }
 
+
+    /**
+     * 根据产品id获取系列
+     * @param param
+     * @return
+     */
     @RequestMapping("querySeasonList")
     public ReturnT<List<SeasonView>> getSeasonList(QueryProductParam param){
         return seasonService.querySeasonView(param);
     }
+
+
+    @RequestMapping("queryImgListByPage")
+    public ReturnT<PageHelper.Page<ProductImg>> queryImgListByPage(QueryProductParam param){
+        return productService.queryImgListByPage(param);
+    }
+
 
 
 

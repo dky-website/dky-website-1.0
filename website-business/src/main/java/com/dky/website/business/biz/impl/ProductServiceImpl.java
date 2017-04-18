@@ -7,6 +7,7 @@ import com.dky.website.business.biz.SeasonService;
 import com.dky.website.business.mapper.ProductImgMapper;
 import com.dky.website.business.mapper.ProductMapper;
 import com.dky.website.business.plugin.PageHelper;
+import com.dky.website.business.plugin.PageHelper.Page;
 import com.dky.website.common.bean.FrontMenu;
 import com.dky.website.common.bean.Product;
 import com.dky.website.common.bean.ProductImg;
@@ -202,5 +203,32 @@ public class ProductServiceImpl implements ProductService {
             viewList.add(productView);
         }
         return new ReturnT<>().sucessData(viewList);
+    }
+
+    @Override
+    public ReturnT<PageHelper.Page<ProductImg>> queryImgListByPage(QueryProductParam param) {
+
+        //获取productId
+        Product queryProduct = new Product();
+        queryProduct.setStatus(StatusEnum.ENABLE.getCode());
+        queryProduct.setType(param.getType());
+        if(StringUtils.isNoneBlank(param.getSeason())){
+            queryProduct.setSeason(param.getSeason());
+        }
+        queryProduct.putExtendedParameterValue("sidx", "ordered");
+        queryProduct.putExtendedParameterValue("sord","asc");
+        List<Product> productList = mapper.query(queryProduct);
+        if(productList == null || productList.size() == 0){
+            return new ReturnT<>().failureData("没有查询到产品数据");
+        }
+        PageHelper.startPage(param.getPage(),param.getPageSize());
+        Product product = productList.get(0);
+        //query imgList
+        ProductImg productImg = new ProductImg();
+        productImg.setStatus(StatusEnum.ENABLE.getCode());
+        productImg.setProductId(product.getId());
+        imgMapper.query(productImg);
+        Page<ProductImg> page = PageHelper.endPage();
+        return new ReturnT<>().sucessData(page);
     }
 }

@@ -2,6 +2,7 @@ package com.dky.website.business.biz;
 
 import com.dky.website.business.plugin.PageHelper;
 import com.dky.website.common.bean.Product;
+import com.dky.website.common.bean.ProductImg;
 import com.dky.website.common.param.AddProductParam;
 import com.dky.website.common.param.QueryProductParam;
 import com.dky.website.common.param.UpdProductParam;
@@ -30,4 +31,11 @@ public interface ProductService {
     ReturnT<FrontProductView> getFrontProductView(QueryProductParam param);
 
     ReturnT<List<FrontProductView>> getFrontProduct(QueryProductParam param);
+
+    /**
+     * 根据产品查询图片列表
+     * @param param
+     * @return
+     */
+    ReturnT<PageHelper.Page<ProductImg>> queryImgListByPage(QueryProductParam param);
 }
