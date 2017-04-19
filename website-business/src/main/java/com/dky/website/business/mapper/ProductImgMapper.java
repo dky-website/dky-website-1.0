@@ -19,4 +19,6 @@ public interface ProductImgMapper {
     int updateByPrimaryKey(ProductImg record);
 
     List<ProductImg> query(ProductImg productImg);
+
+    List<ProductImg> queryProductImgList(ProductImg productImg);
 }

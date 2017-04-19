@@ -111,6 +111,13 @@
         <include refid="whereClause"></include>
     </select>
 
+    <select id="queryProductImgList" resultMap="BaseResultMap"  parameterType="com.dky.website.common.bean.ProductImg" >
+        select
+        <include refid="Base_Column_List" />
+        from t_product_img_list
+        <include refid="whereClause"></include>
+    </select>
+
     <sql id="whereClause">
         <where>
             <if test="productId != null">and product_id = #{productId}</if>
