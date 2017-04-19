@@ -110,7 +110,17 @@
     from t_show t,
     (SELECT * FROM t_season
     WHERE type = 2 <if test="seasonId != null"> and id = #{seasonId} </if> ORDER BY createTime DESC LIMIT 1 ) s
-    where t.status = '0' and t.showSeason = s.id
+    where t.status = '0' and t.showSeason = s.id and t.oldStatus = 0
+    order by t.createTime desc
+  </select>
+
+  <select id="getShowViewListByMenuId" parameterType="java.lang.Long" resultType="ShowView">
+    select
+    t.id, s.name as showSeason, t.image, s.id as seasonId
+    from t_show t,
+    (SELECT * FROM t_season
+    WHERE type = 2 <if test="seasonId != null"> and menuId = #{seasonId} </if> ORDER BY createTime DESC LIMIT 1 ) s
+    where t.status = '0' and t.showSeason = s.id and t.oldStatus = 0
     order by t.createTime desc
   </select>
 
@@ -119,7 +129,7 @@
     t.id, s.name as showSeason, t.image, s.id as seasonId
     from t_show t
     left join t_season s on t.showSeason = s.id
-    where t.status = '0'and s.type = 2
+    where t.status = '0'and s.type = 2 and t.oldStatus = 1
     <if test="seasonId != null">
       and s.id != #{seasonId}
     </if>

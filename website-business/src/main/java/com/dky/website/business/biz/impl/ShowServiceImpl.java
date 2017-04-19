@@ -35,7 +35,12 @@ public class ShowServiceImpl implements ShowService {
     public ReturnT<ShowPageView> getShowImg(QueryFrontShowParam param) {
         ReturnT<ShowPageView> result = new ReturnT<>();
         ShowPageView resultView = new ShowPageView();
-        List<ShowView> showViewList = showMapper.getShowViewList(param.getSeasonId());
+        List<ShowView> showViewList = new ArrayList<>();
+        if (param.getMenuStatus()){
+            showViewList = showMapper.getShowViewListByMenuId(param.getSeasonId());
+        }else {
+            showViewList = showMapper.getShowViewList(param.getSeasonId());
+        }
         resultView.setMiddleShowList(showViewList);
         List<ShowView> oldShowList = new ArrayList<>();
         if (showViewList.size() > 0){

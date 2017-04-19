@@ -23,6 +23,8 @@ public interface ShowMapper {
 
     List<ShowView> getShowViewList(@Param("seasonId")Long seasonId);
 
+    List<ShowView> getShowViewListByMenuId(@Param("seasonId")Long seasonId);
+
     List<ShowView> queryOldShowList(@Param("seasonId")Long seasonId);
 
     List<Show> query(Show show);
