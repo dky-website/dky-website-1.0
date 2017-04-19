@@ -9,7 +9,7 @@ public class QueryFrontShowParam extends WebPageParameter {
 
     private Long seasonId;
 
-    private String showseason;
+    private Boolean menuStatus = Boolean.FALSE;
 
     public Long getSeasonId() {
         return seasonId;
@@ -19,11 +19,11 @@ public class QueryFrontShowParam extends WebPageParameter {
         this.seasonId = seasonId;
     }
 
-    public String getShowseason() {
-        return showseason;
+    public Boolean getMenuStatus() {
+        return menuStatus;
     }
 
-    public void setShowseason(String showseason) {
-        this.showseason = showseason;
+    public void setMenuStatus(Boolean menuStatus) {
+        this.menuStatus = menuStatus;
     }
 }
