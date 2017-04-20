@@ -103,4 +103,19 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="query" resultMap="BaseResultMap"  parameterType="com.dky.website.common.bean.ProductImgList" >
+    select
+    <include refid="Base_Column_List" />
+    from t_product_img_list
+    <include refid="whereClause"></include>
+  </select>
+
+  <sql id="whereClause">
+    <where>
+      <if test="productId != null">and product_id = #{productId}</if>
+      <if test="status != null">and status = #{status}</if>
+    </where>
+  </sql>
+
 </mapper>
