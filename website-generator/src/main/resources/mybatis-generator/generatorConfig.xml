@@ -25,8 +25,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/dky" userId="root"
-                        password="root"/>
+                        connectionURL="jdbc:mysql://www.wonpera.site:3306/hanfu" userId="root"
+                        password="123456"/>
 
         <javaModelGenerator targetPackage="com.dky.website.common.bean"
                             targetProject="E:/git/dky-website-1.0/website-common/src/main/java">
@@ -45,7 +45,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="t_front_menu" domainObjectName="FrontMenu"
+        <table tableName="t_product_img_list" domainObjectName="ProductImgList"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
