@@ -60,6 +60,15 @@
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>XssSqlFilter</filter-name>
+		<filter-class>com.dky.website.web.interceptor.XssFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>XssSqlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
 	<!-- Shiro Security filter
 	<filter>
 		<filter-name>shiroFilter</filter-name>

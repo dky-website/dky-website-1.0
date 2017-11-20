@@ -227,7 +227,7 @@ public class ProductServiceImpl implements ProductService {
         ProductImg productImg = new ProductImg();
         productImg.setStatus(StatusEnum.ENABLE.getCode());
         productImg.setProductId(product.getId());
-        imgMapper.query(productImg);
+        imgMapper.queryProductImgList(productImg);
         Page<ProductImg> page = PageHelper.endPage();
         return new ReturnT<>().sucessData(page);
     }
