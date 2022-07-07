@@ -24,7 +24,7 @@
 		<spring-data-jpa.version>1.9.2.RELEASE</spring-data-jpa.version>
 		<spring-data-redis.version>1.4.2.RELEASE</spring-data-redis.version>
 		<tomcat-jdbc.version>7.0.57</tomcat-jdbc.version>
-		<hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
+		<hibernate-validator.version>6.0.23.Final</hibernate-validator.version>
 		<aspectj.version>1.8.6</aspectj.version>
 		<shiro.version>1.2.3</shiro.version>
 		<mybatis.version>3.2.2</mybatis.version>
