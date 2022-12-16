@@ -20,7 +20,7 @@
 	<properties>
 		<modules.version>1.0.0-SNAPSHOT</modules.version>
 		<!-- 主要依赖库的版本定义 -->
-		<spring.version>4.2.4.RELEASE</spring.version>
+		<spring.version>5.2.20.RELEASE</spring.version>
 		<spring-data-jpa.version>1.9.2.RELEASE</spring-data-jpa.version>
 		<spring-data-redis.version>1.4.2.RELEASE</spring-data-redis.version>
 		<tomcat-jdbc.version>7.0.57</tomcat-jdbc.version>
